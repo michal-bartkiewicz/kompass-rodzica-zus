@@ -79,17 +79,17 @@
       <div class="copy">
         <div class="eyebrow">Od pytania do planu</div>
         <h2>Mniej formularzy na starcie. Więcej jasnych kroków.</h2>
-        <p>Użytkownik zaczyna od fikcyjnego profilu albo własnych danych. Aplikacja prowadzi go od orientacyjnego wyniku do dokumentów i dalszych działań.</p>
+        <p>Użytkownik wybiera „Zaloguj się do eZUS”, a w oknie symulacji wskazuje przypadek testowy. Może też wpisać własne dane. Aplikacja prowadzi go od orientacyjnego wyniku do dokumentów i dalszych działań.</p>
         <div class="flow">
-          <div class="card"><span class="number">1</span><h3>Wybierz</h3><span>Profil demonstracyjny lub dane wpisane samodzielnie.</span></div>
+          <div class="card"><span class="number">1</span><h3>Zaloguj</h3><span>Przypadek testowy w oknie logowania albo dane własne.</span></div>
           <div class="card"><span class="number">2</span><h3>Porównaj</h3><span>Warianty zasiłku, terminy, ryzyka i udział drugiego rodzica.</span></div>
           <div class="card"><span class="number">3</span><h3>Sprawdź</h3><span>Dokumenty, ścieżkę złożenia i projekt PDF do weryfikacji.</span></div>
         </div>
-        <div class="callout">Logowanie mObywatel i dane konta są symulowane. Aplikacja nie łączy się z systemami ZUS.</div>
+        <div class="callout">Logowanie jest symulowane. Aplikacja nie łączy się z systemami ZUS i nie prosi o hasło ani kod logowania.</div>
       </div>
-      <figure class="shot tall"><img src="screenshots/02-profil-demo.jpg" alt="Wybór syntetycznego profilu demo"></figure>
+      <figure class="shot tall"><img src="screenshots/02-logowanie-ezus.jpg" alt="Okno symulacji logowania do eZUS z wyborem przypadku testowego"></figure>
     </div>
-    <div class="footer"><span>Fikcyjne profile nie wymagają podawania danych logowania.</span><span>02 / 09</span></div>
+    <div class="footer"><span>Przypadki testowe nie wymagają podawania danych logowania.</span><span>02 / 09</span></div>
   </section>
 
   <section class="slide">
@@ -140,7 +140,7 @@
         <h2>Od uprawnień do kolejnego kroku.</h2>
         <p>Symulator pokazuje, jak użytkownik mógłby sprawdzić konto, zaświadczenia i złożyć dokument — bez udawania prawdziwego połączenia.</p>
         <div class="points">
-          <div class="point"><span class="number">✓</span><span>Przykładowe logowanie mObywatel i profil ubezpieczonego.</span></div>
+          <div class="point"><span class="number">✓</span><span>Wejście do eZUS i wybór przypadku testowego w oknie symulacji logowania.</span></div>
           <div class="point"><span class="number">✓</span><span>Historia e-ZLA i limit okresu zasiłkowego.</span></div>
           <div class="point"><span class="number">✓</span><span>Symulacja pytania do PUE oraz podgląd konta.</span></div>
           <div class="point"><span class="number">✓</span><span>Przykładowa ścieżka wniosku USC i kreator projektu PDF.</span></div>
@@ -203,7 +203,7 @@
           <div><b>Interfejs React</b><span>Formularze, wyniki, animacje i dostępność.</span></div>
           <div><b>Silnik ZUS</b><span>Reguły, kwoty, terminy i ryzyka — deterministycznie.</span></div>
           <div><b>Gemini opcjonalnie</b><span>OCR dokumentu oraz pomoc w interpretacji prawa.</span></div>
-          <div><b>Tryb demo</b><span>Brak prawdziwego połączenia z ZUS; tylko profile testowe.</span></div>
+          <div><b>Konto testowe</b><span>Brak prawdziwego połączenia z ZUS; fikcyjne przypadki do prezentacji.</span></div>
         </div>
         <div class="callout">W produkcji panel parametrów wymaga klucza administratora. Historia zapisów trafia do dziennika, a dane można umieścić na trwałym wolumenie przez `DATA_DIR`.</div>
       </div>
@@ -222,7 +222,7 @@
         <div class="points">
           <div class="point"><span class="number">✓</span><span>Kalkulator, audyt PDF, symulatory, asystent prawa i pomoc.</span></div>
           <div class="point"><span class="number">✓</span><span>Widoki dostosowane do desktopu i telefonu.</span></div>
-          <div class="point"><span class="number">✓</span><span>29 testów silnika i generatora formularzy przechodzi.</span></div>
+          <div class="point"><span class="number">✓</span><span>Zestaw testów obejmuje silnik reguł i generator formularzy.</span></div>
           <div class="point"><span class="number">→</span><span>Przed wdrożeniem: integracje, przegląd bezpieczeństwa i potwierdzenie stanu prawa.</span></div>
         </div>
         <div class="callout">Uruchomienie: `npm install` → `npm run dev`. Dokumentacja i kryteria zadania są w repozytorium projektu.</div>
