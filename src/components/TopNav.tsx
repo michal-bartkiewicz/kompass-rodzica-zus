@@ -64,8 +64,8 @@ export function TopNav({
       }`}
     >
       <div className="border-b border-[#FCD34D] bg-[#FFFBEB] px-3 py-1.5 text-center text-[10px] font-semibold leading-relaxed text-[#78350F] sm:text-xs">
-        <span className="font-extrabold tracking-wide">TRYB DEMO</span>
-        {' · '}Brak połączenia z ZUS. Profile są przykładowe; nie wpisuj prawdziwych danych logowania.
+        <span className="font-extrabold tracking-wide">Informacja</span>
+        {' · '}Ta wersja nie łączy się z ZUS ani eZUS. Nie wpisuj haseł ani kodów logowania.
       </div>
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-2 px-2.5 sm:h-[76px] sm:gap-5 sm:px-6 lg:gap-6 lg:px-8">
         {/* Zone 1: Brand Wordmark with enlarged pastel crayon ZUS-green compass */}
@@ -115,7 +115,7 @@ export function TopNav({
           })}
         </nav>
 
-        {/* Zone 3: demo profile + accessibility + calm support + mobile menu */}
+        {/* Zone 3: account + accessibility + calm support + mobile menu */}
         <div className="flex items-center gap-1.5 shrink-0 sm:gap-2.5">
           {authSession.loggedIn ? (
             <div className="inline-flex items-center rounded-lg border border-[#CBD5E1] bg-white px-2 py-1.5 text-[11px] font-semibold text-[#0F172A] sm:px-3 sm:text-xs">
@@ -123,22 +123,22 @@ export function TopNav({
                 type="button"
                 onClick={onOpenLoginModal}
                 className="inline-flex items-center gap-1 whitespace-nowrap hover:text-[#0052a5] sm:gap-1.5"
-                title={`Aktywny profil demonstracyjny (${authSession.method})`}
+                title="Konto testowe · zmień przypadek"
               >
                 <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-[#00703C]" />
                 <span className="max-w-[60px] truncate sm:max-w-none">
                   {firstName}
                 </span>
                 <span className="hidden xl:inline max-w-[130px] truncate font-normal text-[#475569]">
-                  · DEMO
+                  · konto testowe
                 </span>
               </button>
               <button
                 type="button"
                 onClick={onLogout}
                 className="ml-1 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded text-[#475569] hover:bg-[#F1F5F9] hover:text-[#0F172A] sm:ml-1.5"
-                aria-label="Zakończ profil demonstracyjny"
-                title="Zakończ demo"
+                aria-label="Wyloguj z konta testowego"
+                title="Wyloguj"
               >
                 <LogOut className="h-3.5 w-3.5" />
               </button>
@@ -150,8 +150,8 @@ export function TopNav({
               className="inline-flex items-center gap-1.5 rounded-lg bg-[#0052a5] px-2.5 py-2 text-xs font-bold text-white whitespace-nowrap shrink-0 transition-colors hover:bg-[#003974] sm:px-4"
             >
               <LogIn className="h-3.5 w-3.5" />
-              <span className="hidden sm:inline">Wybierz profil demo</span>
-              <span className="sm:hidden">Demo</span>
+              <span className="hidden sm:inline">Zaloguj się do eZUS</span>
+              <span className="sm:hidden">Zaloguj</span>
             </button>
           )}
 

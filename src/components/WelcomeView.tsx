@@ -96,7 +96,7 @@ export function WelcomeView({
                   >
                     <LogIn className="h-3.5 w-3.5 shrink-0" />
                     <span>
-                      Aktywny profil demo: {userName} ({authSession.method}) — zmień profil
+                      Konto testowe: {userName} — zmień przypadek
                     </span>
                   </button>
                 ) : (
@@ -107,7 +107,7 @@ export function WelcomeView({
                   >
                     <LogIn className="h-3.5 w-3.5 shrink-0" />
                     <span>
-                      Wybierz profil demonstracyjny
+                      Zaloguj się do eZUS
                     </span>
                   </button>
                 )}
@@ -169,13 +169,13 @@ export function WelcomeView({
         <div className="grid divide-y divide-[#DCECE3] rounded-2xl border border-[#DCECE3] bg-white md:grid-cols-3 md:divide-x md:divide-y-0">
           <div className="space-y-2.5 p-6 sm:p-7">
             <div className="font-mono text-xs font-bold tracking-wider text-[#00703C]">
-              01. PROFIL DEMO LUB WŁASNE DANE
+              01. LOGOWANIE LUB WŁASNE DANE
             </div>
             <h3 className="font-display text-lg font-bold text-[#0F172A]">
               Wybierasz scenariusz do obliczeń
             </h3>
             <p className="text-sm leading-relaxed text-[#475569]">
-              Logowanie przez mObywatel jest tu symulowane. Wybierz przykładowy profil albo przejdź do anonimowego formularza i wpisz własne dane.
+              Zaloguj się do eZUS, a w oknie logowania wybierz przypadek testowy. Możesz też przejść do formularza i wpisać własne dane.
             </p>
           </div>
 

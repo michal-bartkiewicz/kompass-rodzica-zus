@@ -128,7 +128,7 @@ export function EcosystemView({
 
   const plainText = formatOfficialFormAsPlainText(activeFormSpec);
   const docText =
-    `PROJEKT DEMONSTRACYJNY — NIE JEST OFICJALNYM FORMULARZEM ZUS. NIE SKŁADAJ.\n\n` +
+    `PROJEKT TESTOWY — NIE JEST OFICJALNYM FORMULARZEM ZUS. NIE SKŁADAJ. Numery PESEL są fikcyjne i nie przechodzą walidacji.\n\n` +
     (selectedDoc === 'Z3_Z3A_PLATNIK' && mom.title === 'B2B'
       ? `W tym przykładzie pokazano przejście ze starego symbolu Z-3b do projektu ZAM. To szablon demonstracyjny.\n\n${plainText}`
       : plainText);
@@ -158,12 +158,12 @@ export function EcosystemView({
                 Symulator eZUS, e-ZLA i Kreatorów Dokumentów
               </h1>
               <p className="max-w-2xl text-sm leading-relaxed text-[#475569]">
-                Demonstracja profilu ubezpieczonego, e-ZLA, salda składek i ścieżek USC. Nie łączy się z systemami ZUS ani USC; profile, dane i potwierdzenia są przykładowe.
+                Podgląd konta, e-ZLA, salda składek i ścieżek USC. Ta wersja nie łączy się z systemami ZUS ani USC; prezentowane dane są przykładowe.
               </p>
               <div className="text-xs font-semibold text-[#00703C]">
                 {authSession.loggedIn
-                  ? `Aktywny profil demo · ${mom.name} · ${authSession.method}`
-                  : 'Tryb demonstracyjny — wybierz przykładowy profil lub wpisz własne dane'}
+                  ? `Konto testowe · ${mom.name}`
+                  : 'Zaloguj się do eZUS, aby otworzyć konto testowe'}
               </div>
             </div>
             <div className="lg:col-span-4">
@@ -184,21 +184,21 @@ export function EcosystemView({
           </div>
         </section>
 
-        {/* Top Row: login.gov.pl (mObywatel) + eZUS + USC */}
+        {/* Top Row: eZUS account + USC */}
         <div className="grid gap-6 lg:grid-cols-3">
           {/* Identity & eZUS Login Card */}
           <section className="rounded-2xl border border-[#DCECE3] bg-white p-5 space-y-4">
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-2 text-sm font-bold text-[#0F172A]">
                 <Smartphone className="h-4 w-4 shrink-0 text-[#0052a5]" />
-                <span>Symulacja logowania · mObywatel</span>
+                <span>Konto eZUS</span>
               </div>
               <span
                 className={`text-xs font-semibold ${
                   authSession.loggedIn ? 'text-[#00703C]' : 'text-[#B45309]'
                 }`}
               >
-                {authSession.loggedIn ? 'Profil demo' : 'Bez profilu demo'}
+                {authSession.loggedIn ? 'Konto testowe' : 'Niezalogowano'}
               </span>
             </div>
 
@@ -238,7 +238,7 @@ export function EcosystemView({
                     className="inline-flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap shrink-0 rounded-xl bg-[#0052a5] px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-[#003974]"
                   >
                     <LogIn className="h-3.5 w-3.5" />
-                    <span>Zmień profil demo</span>
+                    <span>Zmień przypadek testowy</span>
                   </button>
                   <button
                     type="button"
@@ -250,7 +250,7 @@ export function EcosystemView({
                     className="inline-flex items-center gap-1 whitespace-nowrap shrink-0 rounded-xl border border-[#CBD5E1] bg-white px-3 py-2 text-xs font-semibold text-[#475569] hover:bg-[#F1F5F9]"
                   >
                     <LogOut className="h-3.5 w-3.5" />
-                    <span>Zakończ demo</span>
+                    <span>Wyloguj</span>
                   </button>
                 </>
               ) : (
@@ -260,13 +260,13 @@ export function EcosystemView({
                   className="inline-flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap shrink-0 rounded-xl bg-[#0052a5] px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-[#003974]"
                 >
                   <LogIn className="h-3.5 w-3.5" />
-                <span>Wybierz profil demo</span>
+                  <span>Zaloguj się do eZUS</span>
                 </button>
               )}
             </div>
 
             <p className="text-xs leading-relaxed text-[#475569]">
-              Wybór profilu jedynie symuluje logowanie mObywatel. Dane o składkach, podstawie i e-ZLA są przykładowe i nie pochodzą z systemu ZUS.
+              Dane o składkach, podstawie i e-ZLA są przykładowe i nie pochodzą z systemu ZUS.
             </p>
           </section>
 
@@ -275,7 +275,7 @@ export function EcosystemView({
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-2 text-sm font-bold text-[#0F172A]">
                 <Landmark className="h-4 w-4 text-[#00703C]" />
-                <span>Podgląd konta · dane demo</span>
+                <span>Podgląd konta · dane testowe</span>
               </div>
               <span
                 className={`text-xs font-bold ${
@@ -287,7 +287,7 @@ export function EcosystemView({
                 }`}
               >
                 {!authSession.loggedIn
-                  ? 'Wybierz profil demo'
+                  ? 'Zaloguj się do eZUS'
                   : hasBlockingDebt
                     ? `Zaległość ${mom.b2bDebtAmount.toFixed(2)} zł`
                     : 'Przykładowe saldo'}
@@ -313,7 +313,7 @@ export function EcosystemView({
 
             {!authSession.loggedIn ? (
               <p className="text-xs leading-relaxed text-[#475569]">
-                Wybierz profil demonstracyjny, aby zobaczyć przykładową historię e-ZLA i saldo. Nie są one pobierane z ZUS.
+                Zaloguj się do eZUS, aby zobaczyć przykładową historię e-ZLA i saldo. Dane nie są pobierane z ZUS.
               </p>
             ) : persona.eZlaHistory.length > 0 ? (
               <div className="divide-y divide-[#F1F5F9] text-xs">
@@ -379,7 +379,7 @@ export function EcosystemView({
                   className="inline-flex w-full items-center justify-center gap-1.5 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] px-3 py-2 text-xs font-bold text-[#0052a5] hover:bg-[#F0F5FA]"
                 >
                   <Lock className="h-3.5 w-3.5" />
-                  <span>Wybierz profil demo, aby zobaczyć saldo przykładowe</span>
+                  <span>Zaloguj się do eZUS, aby zobaczyć saldo przykładowe</span>
                 </button>
               )}
             </div>
@@ -457,7 +457,7 @@ export function EcosystemView({
                 <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-[#00703C]" />
                 <span>
                   {!authSession.loggedIn
-                    ? 'Wybierz profil demo, aby zobaczyć przykładową ścieżkę wypłaty'
+                    ? 'Zaloguj się do eZUS, aby zobaczyć przykładową ścieżkę wypłaty'
                     : momIsZUsPayer
                       ? `Wypłata przez ZUS (${mom.title}) → ZAM na PUE/eZUS`
                       : `Wypłata przez pracodawcę (${mom.payerInsuredCount} os.) → Wniosek do kadr`}
@@ -517,10 +517,10 @@ export function EcosystemView({
               <div className="border-t border-[#E2E8F0] pt-5 space-y-3">
                 <div className="inline-flex items-center gap-2 text-xs font-bold text-[#00703C]">
                   <Lock className="h-4 w-4" />
-                  <span>Projekty dokumentów są dostępne w profilu demo</span>
+                  <span>Projekty dokumentów są dostępne po zalogowaniu</span>
                 </div>
                 <p className="max-w-xl text-xs leading-relaxed text-[#475569]">
-                  Wybór profilu demo wypełni przykładowe dane w projektach ZAM, ZAS-53, Z-3/Z-3a oraz wnioskach do pracodawcy. To nie są oficjalne druki ani połączenie z eZUS.
+                  Konto testowe wypełni przykładowe dane w projektach ZAM, ZAS-53, Z-3/Z-3a oraz wnioskach do pracodawcy. To nie są oficjalne druki ani dane pobrane z eZUS.
                 </p>
                 <div>
                   <button
@@ -529,7 +529,7 @@ export function EcosystemView({
                     className="inline-flex items-center gap-2 rounded-xl bg-[#0052a5] px-4 py-2.5 text-xs font-bold text-white transition-colors hover:bg-[#003974]"
                   >
                     <LogIn className="h-3.5 w-3.5" />
-                    <span>Wybierz profil demo</span>
+                    <span>Zaloguj się do eZUS</span>
                   </button>
                 </div>
               </div>
@@ -589,7 +589,9 @@ export function EcosystemView({
                       </p>
                     </div>
                     <span className="rounded-lg border border-[#FECACA] bg-white px-3 py-2 text-center text-[10px] font-extrabold leading-snug text-[#991B1B]">
-                      WZÓR DEMO
+                      WZÓR TESTOWY
+                      <br />
+                      PESEL FIKCYJNY
                       <br />
                       NIE SKŁADAJ
                     </span>
@@ -716,7 +718,7 @@ export function EcosystemView({
                   className="inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-[#0052a5] px-4 py-2 text-xs font-semibold text-white hover:bg-[#003974]"
                 >
                   <LogIn className="h-3.5 w-3.5" />
-                  <span>Wybierz profil demo, aby zobaczyć odpowiedź przykładową</span>
+                  <span>Zaloguj się do eZUS, aby zobaczyć odpowiedź przykładową</span>
                 </button>
               )}
 

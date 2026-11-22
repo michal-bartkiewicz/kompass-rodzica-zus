@@ -21,7 +21,9 @@ export function PrintableFormSheet({
       aria-label={`Projekt demonstracyjny ${spec.symbol}`}
     >
       <div className="mb-3 border-2 border-red-300 bg-red-50 px-3 py-2 text-center text-[9pt] font-extrabold text-red-900">
-        PROJEKT DEMONSTRACYJNY — NIE JEST OFICJALNYM FORMULARZEM ZUS. NIE SKŁADAJ.
+        PROJEKT TESTOWY — NIE JEST OFICJALNYM FORMULARZEM ZUS. NIE SKŁADAJ.
+        <br />
+        Numery PESEL są fikcyjne i nie przechodzą walidacji.
       </div>
       <table className="w-full border-collapse border border-black text-left">
         <tbody>
@@ -151,7 +153,7 @@ export function PrintableFormSheet({
       </div>
 
       <footer className="mt-3 text-[7.5pt] text-[#334155]">
-        {spec.symbol} · Projekt demonstracyjny · stan prawny {yearLabel}
+        {spec.symbol} · Projekt testowy · stan prawny {yearLabel}
       </footer>
     </article>
   );

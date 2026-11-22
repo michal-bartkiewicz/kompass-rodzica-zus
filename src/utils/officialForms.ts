@@ -80,11 +80,25 @@ function formatPlnValue(val: number): string {
   })} zł`;
 }
 
-function peselOrPlaceholder(peselMask: string, isAnonymous: boolean): string {
-  if (isAnonymous || !peselMask || peselMask.includes('-')) {
+function hasValidPeselChecksum(pesel: string): boolean {
+  const weights = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3];
+  const sum = weights.reduce(
+    (total, weight, index) => total + Number(pesel[index]) * weight,
+    0
+  );
+  return Number(pesel[10]) === (10 - (sum % 10)) % 10;
+}
+
+function peselOrPlaceholder(testPesel: string | undefined, isAnonymous: boolean): string {
+  if (
+    isAnonymous ||
+    !testPesel ||
+    !/^\d{11}$/.test(testPesel) ||
+    hasValidPeselChecksum(testPesel)
+  ) {
     return '[ _ ][ _ ][ _ ][ _ ][ _ ][ _ ][ _ ][ _ ][ _ ][ _ ][ _ ]  (wpisz 11 cyfr PESEL)';
   }
-  return `${peselMask}  (uzupełnij pełny numer PESEL, jeśli brak na wydruku)`;
+  return testPesel;
 }
 
 export function resolveDefaultFormKind(
@@ -163,8 +177,8 @@ export function buildOfficialFormSpec(input: BuildFormInput): OfficialFormSpec {
       otherParent.name || '........................................'
     ).toUpperCase();
     const applicantPesel = isPaternityOnly
-      ? '[ _ ][ _ ][ _ ][ _ ][ _ ][ _ ][ _ ][ _ ][ _ ][ _ ][ _ ]'
-      : peselOrPlaceholder(persona.peselMask, isAnonymous);
+      ? peselOrPlaceholder(persona.testPeselDad, isAnonymous)
+      : peselOrPlaceholder(persona.testPesel, isAnonymous);
 
     const maternityPeriodLabel = isAdoptionOrFoster
       ? `urlopu na warunkach urlopu macierzyńskiego (${result.durations.momMaternityWeeks} tyg.)`
@@ -480,7 +494,7 @@ export function buildOfficialFormSpec(input: BuildFormInput): OfficialFormSpec {
           rows: [
             {
               label: '1. Numer PESEL',
-              value: peselOrPlaceholder(persona.peselMask, isAnonymous),
+              value: peselOrPlaceholder(persona.testPesel, isAnonymous),
               isManualFill: true,
             },
             {
@@ -670,7 +684,7 @@ export function buildOfficialFormSpec(input: BuildFormInput): OfficialFormSpec {
             },
             {
               label: '2. Numer PESEL',
-              value: peselOrPlaceholder(persona.peselMask, isAnonymous),
+              value: peselOrPlaceholder(persona.testPesel, isAnonymous),
               isManualFill: true,
             },
             {

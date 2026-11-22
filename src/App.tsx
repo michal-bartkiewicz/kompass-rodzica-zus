@@ -67,7 +67,7 @@ export default function App() {
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [authSession, setAuthSession] = useState<AuthSession>({
     loggedIn: false,
-    method: 'Symulacja · mObywatel',
+    method: 'Symulacja logowania · eZUS',
     loginTime: '',
   });
 
@@ -145,7 +145,7 @@ export default function App() {
   const handleLogout = () => {
     setAuthSession({
       loggedIn: false,
-      method: 'Symulacja · mObywatel',
+      method: 'Symulacja logowania · eZUS',
       loginTime: '',
     });
     setActivePersonaId('');
@@ -267,7 +267,6 @@ export default function App() {
             activePersonaId={activePersonaId}
             authSession={authSession}
             onOpenLoginModal={() => setLoginModalOpen(true)}
-            onSelectPersona={handleSelectPersona}
             onChangeMom={setMom}
             onChangeDad={setDad}
             onChangeScenario={setScenario}

@@ -255,6 +255,10 @@ export interface PersonaProfile {
   label: string;
   shortRole: string;
   peselMask: string;
+  /** Synthetic, checksum-invalid PESEL used only in clearly marked test documents. */
+  testPesel?: string;
+  /** Synthetic PESEL for the second parent, used in paternity-only test documents. */
+  testPeselDad?: string;
   mom: ParentInput;
   dad: ParentInput;
   scenario: ScenarioConfig;

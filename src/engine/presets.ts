@@ -124,6 +124,8 @@ export const PERSONA_PROFILES: PersonaProfile[] = [
     label: 'Anna (UoP, firma 12 os.) i Marek (UoP, 40 os.)',
     shortRole: 'Klasyczny przypadek — wypłaca ZUS dla mamy',
     peselMask: '920418*****',
+    testPesel: '92041800000',
+    testPeselDad: '90010100000',
     pueDebt: 0,
     mom: {
       name: 'Anna Kowalska',
@@ -216,6 +218,8 @@ export const PERSONA_PROFILES: PersonaProfile[] = [
     label: 'Kasia (B2B z długiem 62 zł) i Piotr (UoP)',
     shortRole: 'Pułapka art. 2a (zadłużenie > 48,06 zł)',
     peselMask: '941103*****',
+    testPesel: '94110300000',
+    testPeselDad: '88010100000',
     pueDebt: 62,
     mom: {
       name: 'Katarzyna Nowak',
@@ -299,6 +303,8 @@ export const PERSONA_PROFILES: PersonaProfile[] = [
     label: 'Rodzice wcześniaka (27. tydz., 940 g, 92 dni szpitala)',
     shortRole: 'Uzupełniający urlop macierzyński (art. 180² KP)',
     peselMask: '900812*****',
+    testPesel: '90081200000',
+    testPeselDad: '87060600000',
     pueDebt: 0,
     mom: {
       name: 'Magdalena Zielińska',
@@ -370,6 +376,8 @@ export const PERSONA_PROFILES: PersonaProfile[] = [
     label: 'Rodzina adopcyjna (dziecko 4 lata + Za życiem)',
     shortRole: 'Warunki adopcyjne i 65 tyg. rodzicielskiego',
     peselMask: '880225*****',
+    testPesel: '88022500000',
+    testPeselDad: '86020300000',
     pueDebt: 0,
     mom: {
       name: 'Joanna Wiśniewska',
@@ -441,6 +449,8 @@ export const PERSONA_PROFILES: PersonaProfile[] = [
     label: 'Zofia (B2B na L4 kod B w ciąży) i Michał (UoP)',
     shortRole: 'Zasiłek chorobowy w ciąży (100%, od 1. dnia ZUS, druk ZAS-53)',
     peselMask: '930714*****',
+    testPesel: '93071400000',
+    testPeselDad: '91010100000',
     pueDebt: 0,
     mom: {
       name: 'Zofia Kamińska',

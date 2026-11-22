@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { CheckCircle2, ShieldAlert, Users, X } from 'lucide-react';
 import { PERSONA_PROFILES } from '../engine/presets.ts';
 
-export type AuthMethod = 'Symulacja · mObywatel';
+export type AuthMethod = 'Symulacja logowania · eZUS';
 
 export interface AuthSession {
   loggedIn: boolean;
@@ -34,7 +34,7 @@ export function ZusLoginModal({
   if (!isOpen) return null;
 
   const handleStartDemo = () => {
-    onLoginSuccess('Symulacja · mObywatel', selectedPersonaId);
+    onLoginSuccess('Symulacja logowania · eZUS', selectedPersonaId);
     onClose();
   };
 
@@ -43,17 +43,17 @@ export function ZusLoginModal({
       className="fixed inset-0 z-50 flex items-center justify-center bg-[#0F172A]/60 p-4 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
-      aria-labelledby="demo-login-title"
+      aria-labelledby="ezus-login-title"
     >
       <div className="w-full max-w-xl overflow-hidden rounded-2xl border border-[#DCECE3] bg-white shadow-2xl">
         <div className="flex items-start justify-between gap-4 border-b border-[#DCECE3] bg-[#F2FBF6] px-6 py-5">
           <div>
             <div className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-[#DCFCE7] px-2.5 py-1 text-[11px] font-extrabold uppercase tracking-wide text-[#166534]">
               <ShieldAlert className="h-3.5 w-3.5" />
-              Symulacja konkursowa
+              Symulacja logowania
             </div>
-            <h2 id="demo-login-title" className="font-display text-xl font-extrabold text-[#0F172A]">
-              Wybierz profil demonstracyjny
+            <h2 id="ezus-login-title" className="font-display text-xl font-extrabold text-[#0F172A]">
+              Zaloguj się do eZUS
             </h2>
           </div>
           <button
@@ -68,21 +68,21 @@ export function ZusLoginModal({
 
         <div className="space-y-5 p-6">
           <div className="rounded-xl border border-[#FCD34D] bg-[#FFFBEB] p-4 text-sm leading-relaxed text-[#78350F]">
-            To jest wyłącznie demonstracja logowania przez mObywatel. Aplikacja
-            nie łączy się z eZUS i nie pobiera prawdziwych danych. Nie wpisuj tu
+            To jest symulacja logowania. Aplikacja nie łączy się z eZUS i nie
+            pobiera prawdziwych danych. Nie wpisuj tu
             hasła, kodu SMS ani innych danych logowania.
           </div>
 
           <div className="space-y-2">
             <label
-              htmlFor="demo-persona-select"
+              htmlFor="test-case-select"
               className="flex items-center gap-2 text-sm font-bold text-[#0F172A]"
             >
               <Users className="h-4 w-4 text-[#00703C]" />
-              Profil testowy do pokazania w aplikacji
+              Wybierz przypadek testowy
             </label>
             <select
-              id="demo-persona-select"
+              id="test-case-select"
               value={selectedPersonaId}
               onChange={(event) => setSelectedPersonaId(event.target.value)}
               className="w-full rounded-xl border border-[#CBD5E1] bg-white px-3 py-3 text-sm font-semibold text-[#0F172A] focus:border-[#00703C] focus:outline-none focus:ring-2 focus:ring-[#BBF7D0]"
@@ -94,8 +94,8 @@ export function ZusLoginModal({
               ))}
             </select>
             <p className="text-xs leading-relaxed text-[#64748B]">
-              Profile są przykładowe i pozostają w aplikacji demonstracyjnej.
-              Wybór profilu wypełni kalkulator i widok dokumentów fikcyjnymi danymi.
+              Wybór wypełni aplikację fikcyjnymi danymi. Numery PESEL na
+              wydrukach są testowe i nie przechodzą walidacji sumy kontrolnej.
             </p>
           </div>
 
@@ -113,7 +113,7 @@ export function ZusLoginModal({
               className="inline-flex items-center gap-2 rounded-xl bg-[#00703C] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#005A30]"
             >
               <CheckCircle2 className="h-4 w-4" />
-              Uruchom profil demo
+              Zaloguj się do eZUS
             </button>
           </div>
         </div>

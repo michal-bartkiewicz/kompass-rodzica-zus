@@ -4,7 +4,6 @@ import {
   AlertTriangle,
   ArrowRight,
   CheckCircle2,
-  CloudDownload,
   Download,
   Edit3,
   FileText,
@@ -47,7 +46,6 @@ interface CalculatorViewProps {
   activePersonaId: string;
   authSession: AuthSession;
   onOpenLoginModal: () => void;
-  onSelectPersona: (id: string) => void;
   onChangeMom: (next: ParentInput) => void;
   onChangeDad: (next: ParentInput) => void;
   onChangeScenario: (next: ScenarioConfig) => void;
@@ -363,7 +361,6 @@ export function CalculatorView({
   activePersonaId,
   authSession,
   onOpenLoginModal,
-  onSelectPersona,
   onChangeMom,
   onChangeDad,
   onChangeScenario,
@@ -372,7 +369,7 @@ export function CalculatorView({
 }: CalculatorViewProps) {
   const [manualMode, setManualMode] = useState(false);
   const [lastFetchedNote, setLastFetchedNote] = useState(
-    'Profil demonstracyjny wczytany lokalnie'
+    'Dane konta testowego wczytane lokalnie'
   );
   const [showTimeline, setShowTimeline] = useState(false);
   const [showPregnancyDetails, setShowPregnancyDetails] = useState(true);
@@ -439,18 +436,6 @@ export function CalculatorView({
     [activePersona, mom, dad, scenario, params, result, defaultFormKind]
   );
 
-  const handleFetchFromZus = () => {
-    if (!authSession.loggedIn) return;
-    onSelectPersona(activePersonaId);
-    setManualMode(false);
-    setLastFetchedNote(
-      `Załadowano lokalny profil demonstracyjny (${new Date().toLocaleTimeString('pl-PL', {
-        hour: '2-digit',
-        minute: '2-digit',
-      })})`
-    );
-  };
-
   const handleToggleManualMode = () => {
     if (!manualMode && !authSession.loggedIn && mom.monthlyGross === 0) {
       onChangeMom(ANONYMOUS_MANUAL_MOM);
@@ -479,15 +464,11 @@ export function CalculatorView({
               {authSession.loggedIn ? (
                 <button
                   type="button"
-                  onClick={handleFetchFromZus}
-                  className={`inline-flex items-center gap-2 whitespace-nowrap shrink-0 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors ${
-                    !manualMode
-                      ? 'bg-[#00703C] text-white'
-                      : 'border border-[#DCECE3] bg-[#F2FBF6] text-[#00703C] hover:bg-[#DCFCE7]'
-                  }`}
+                  onClick={onOpenLoginModal}
+                  className="inline-flex items-center gap-2 whitespace-nowrap shrink-0 rounded-xl bg-[#0052a5] px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#003974]"
                 >
-                  <CloudDownload className="h-4 w-4" />
-                  <span>Załaduj profil demo</span>
+                  <LogIn className="h-4 w-4" />
+                  <span>Zmień przypadek testowy</span>
                 </button>
               ) : (
                 <button
@@ -496,7 +477,7 @@ export function CalculatorView({
                   className="inline-flex items-center gap-2 whitespace-nowrap shrink-0 rounded-xl bg-[#0052a5] px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#003974]"
                 >
                   <LogIn className="h-4 w-4" />
-                  <span>Wybierz profil demo</span>
+                  <span>Zaloguj się do eZUS</span>
                 </button>
               )}
 
@@ -545,30 +526,22 @@ export function CalculatorView({
                 {manualMode
                   ? 'Tryb ręcznego wprowadzania danych (symulacja lokalna)'
                   : authSession.loggedIn
-                    ? `${lastFetchedNote} · Profil: ${mom.name} (PESEL: ${activePersona.peselMask})`
+                    ? `${lastFetchedNote} · ${mom.name} (PESEL testowy: ${activePersona.peselMask})`
                     : !hasDataAccess
-                      ? 'Wybierz profil demo lub wpisz dane samodzielnie'
+                      ? 'Zaloguj się do eZUS lub wpisz dane samodzielnie'
                       : 'Anonimowa symulacja na podstawie wprowadzonych danych'}
               </span>
             </div>
 
             {authSession.loggedIn ? (
               <div className="flex flex-wrap items-center gap-2">
-                <label htmlFor="calc-persona-switch" className="text-xs font-semibold text-[#475569]">
-                  Profil demonstracyjny:
-                </label>
-                <select
-                  id="calc-persona-switch"
-                  value={activePersonaId}
-                  onChange={(e) => onSelectPersona(e.target.value)}
-                  className="rounded-lg border border-[#CBD5E1] bg-white px-2.5 py-1.5 text-xs font-semibold text-[#0F172A]"
+                <button
+                  type="button"
+                  onClick={onOpenLoginModal}
+                  className="rounded-lg border border-[#CBD5E1] bg-white px-2.5 py-1.5 text-xs font-semibold text-[#0F172A] hover:bg-[#F8FAFC]"
                 >
-                  {PERSONA_PROFILES.map((p) => (
-                    <option key={p.id} value={p.id}>
-                      {p.label}
-                    </option>
-                  ))}
-                </select>
+                  Zmień przypadek testowy
+                </button>
               </div>
             ) : hasDataAccess ? (
               <button
@@ -576,7 +549,7 @@ export function CalculatorView({
                 onClick={onOpenLoginModal}
                 className="whitespace-nowrap shrink-0 rounded-xl bg-[#0052a5] px-3.5 py-2 text-xs font-bold text-white transition-colors hover:bg-[#003974]"
               >
-                Wybierz profil demo
+                Zaloguj się do eZUS
               </button>
             ) : null}
           </div>
@@ -585,7 +558,7 @@ export function CalculatorView({
             <div className="grid divide-y divide-[#E2E8F0] border-t border-[#E2E8F0] pt-4 text-xs sm:grid-cols-4 sm:divide-x sm:divide-y-0">
               <div className="py-2 sm:py-0 sm:pr-4">
                 <div className="text-[#475569]">
-                  {authSession.loggedIn ? 'Rodzic 1 (profil demo)' : 'Rodzic 1'}
+                  {authSession.loggedIn ? 'Rodzic 1 (konto testowe)' : 'Rodzic 1'}
                 </div>
                 <div className="mt-0.5 font-bold text-[#0F172A]">{mom.name}</div>
                 <div className="font-mono tabular-nums text-[#00703C]">
@@ -594,7 +567,7 @@ export function CalculatorView({
               </div>
               <div className="py-2 sm:px-4 sm:py-0">
                 <div className="text-[#475569]">
-                  {authSession.loggedIn ? 'Rodzic 2 (profil demo)' : 'Rodzic 2'}
+                  {authSession.loggedIn ? 'Rodzic 2 (konto testowe)' : 'Rodzic 2'}
                 </div>
                 <div className="mt-0.5 font-bold text-[#0F172A]">{dad.name}</div>
                 <div className="font-mono tabular-nums text-[#00703C]">
@@ -1077,13 +1050,13 @@ export function CalculatorView({
             <div className="max-w-2xl space-y-2">
               <div className="inline-flex items-center gap-2 text-xs font-bold text-[#00703C]">
                 <Lock className="h-4 w-4" />
-                <span>Tryb demonstracyjny</span>
+                <span>Twoje konto</span>
               </div>
               <h2 className="font-display text-xl font-extrabold text-[#0F172A]">
-                Wybierz profil demo lub oblicz anonimowo
+                Zaloguj się do eZUS lub oblicz anonimowo
               </h2>
               <p className="text-sm leading-relaxed text-[#475569]">
-                Zalogowanie w tej wersji jedynie ładuje fikcyjny profil testowy. Nie podawaj danych logowania do eZUS. Możesz też wybrać „Wypełnij samodzielnie” — wpisywane dane pozostają w bieżącej sesji aplikacji.
+                Możesz też wypełnić dane samodzielnie — pozostaną w bieżącej sesji aplikacji.
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-3">
@@ -1093,7 +1066,7 @@ export function CalculatorView({
                 className="inline-flex items-center gap-2 whitespace-nowrap shrink-0 rounded-xl bg-[#0052a5] px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[#003974]"
               >
                 <LogIn className="h-4 w-4" />
-                <span>Wybierz profil demo</span>
+                <span>Zaloguj się do eZUS</span>
               </button>
               <button
                 type="button"
