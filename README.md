@@ -55,7 +55,7 @@ Serwer deweloperski uruchamia aplikację na porcie 3000. Klucz `GEMINI_API_KEY` 
 
 ## Ograniczenia prototypu
 
-To demonstracja, nie system do podejmowania decyzji urzędowych. Profile i zestawy audytowe są syntetyczne, integracje zewnętrzne są symulowane, a generowane dokumenty nie są oficjalnymi drukami. API sprawdza typy i zakresy parametrów, ale panel administracyjny nie ma uwierzytelniania ani audytu zmian. Przed wdrożeniem trzeba dodać autoryzację do operacji administracyjnych, audyt zmian, ustalić bezpieczny sposób obsługi dokumentów oraz zweryfikować reguły z aktualnymi źródłami ZUS.
+To demonstracja, nie system do podejmowania decyzji urzędowych. Profile i zestawy audytowe są syntetyczne, integracje zewnętrzne są symulowane, a generowane dokumenty nie są oficjalnymi drukami. Zmiany parametrów w produkcji wymagają `ADMIN_ACCESS_KEY`; w trybie deweloperskim panel jest dostępny bez klucza. Aplikacja nie prowadzi jeszcze dziennika zmian. Przed wdrożeniem trzeba dodać audyt zmian, ustalić bezpieczny sposób obsługi dokumentów oraz zweryfikować reguły z aktualnymi źródłami ZUS.
 
 ## Kryteria wyzwania
 

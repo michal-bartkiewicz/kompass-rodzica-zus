@@ -1,13 +1,7 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { TopNav, type AppTab } from './components/TopNav.tsx';
 import { WelcomeView } from './components/WelcomeView.tsx';
-import { CalculatorView } from './components/CalculatorView.tsx';
-import { AuditPdfView } from './components/AuditPdfView.tsx';
-import { EcosystemView } from './components/EcosystemView.tsx';
-import { CalmSupportView } from './components/CalmSupportView.tsx';
-import { LegalRagView } from './components/LegalRagView.tsx';
-import { AdminPanelView } from './components/AdminPanelView.tsx';
 import {
   ZusLoginModal,
   type AuthMethod,
@@ -27,6 +21,37 @@ import type {
   ParentInput,
   ScenarioConfig,
 } from './engine/types.ts';
+
+const CalculatorView = lazy(() =>
+  import('./components/CalculatorView.tsx').then((module) => ({
+    default: module.CalculatorView,
+  }))
+);
+const AuditPdfView = lazy(() =>
+  import('./components/AuditPdfView.tsx').then((module) => ({
+    default: module.AuditPdfView,
+  }))
+);
+const EcosystemView = lazy(() =>
+  import('./components/EcosystemView.tsx').then((module) => ({
+    default: module.EcosystemView,
+  }))
+);
+const CalmSupportView = lazy(() =>
+  import('./components/CalmSupportView.tsx').then((module) => ({
+    default: module.CalmSupportView,
+  }))
+);
+const LegalRagView = lazy(() =>
+  import('./components/LegalRagView.tsx').then((module) => ({
+    default: module.LegalRagView,
+  }))
+);
+const AdminPanelView = lazy(() =>
+  import('./components/AdminPanelView.tsx').then((module) => ({
+    default: module.AdminPanelView,
+  }))
+);
 
 export default function App() {
   const prefersReducedMotion = useReducedMotion();
@@ -208,6 +233,17 @@ export default function App() {
             exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -6 }}
             transition={{ duration: prefersReducedMotion ? 0 : 0.2, ease: 'easeOut' }}
           >
+        <Suspense
+          fallback={
+            <div
+              role="status"
+              className="flex min-h-48 items-center justify-center gap-3 rounded-2xl border border-[#DCECE3] bg-white text-sm font-semibold text-[#475569]"
+            >
+              <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#DCECE3] border-t-[#00703C]" />
+              Przygotowuję widok…
+            </div>
+          }
+        >
         {activeTab === 'welcome' && (
           <WelcomeView
             authSession={authSession}
@@ -275,6 +311,7 @@ export default function App() {
             onApplyPretermToCalculator={handleApplyPretermToCalculator}
           />
         )}
+        </Suspense>
           </motion.div>
         </AnimatePresence>
       </main>

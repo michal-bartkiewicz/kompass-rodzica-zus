@@ -36,7 +36,6 @@ import {
   buildOfficialFormSpec,
   resolveDefaultFormKind,
 } from '../utils/officialForms.ts';
-import { downloadOfficialZusPdf } from '../utils/zusPdfGenerator.ts';
 import { PrintableFormSheet } from './PrintableFormSheet.tsx';
 import type { AuthSession } from './ZusLoginModal.tsx';
 
@@ -1247,17 +1246,20 @@ export function CalculatorView({
           <div className="flex flex-wrap items-center gap-3">
             <button
               type="button"
-              onClick={() =>
-                downloadOfficialZusPdf({
-                  persona: activePersona,
-                  mom,
-                  dad,
-                  scenario,
-                  params,
-                  result,
-                  forceForm: 'ZAS-53',
-                })
-              }
+              onClick={() => {
+                void import('../utils/zusPdfGenerator.ts').then(
+                  ({ downloadOfficialZusPdf }) =>
+                    downloadOfficialZusPdf({
+                      persona: activePersona,
+                      mom,
+                      dad,
+                      scenario,
+                      params,
+                      result,
+                      forceForm: 'ZAS-53',
+                    })
+                );
+              }}
               className="inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 rounded-xl border border-[#DCECE3] bg-[#F2FBF6] px-3.5 py-2 text-xs font-bold text-[#00703C] transition-colors hover:bg-[#DCFCE7]"
             >
               <Download className="h-3.5 w-3.5" />
@@ -1335,17 +1337,20 @@ export function CalculatorView({
           <div className="flex flex-wrap items-center gap-2.5">
             <button
               type="button"
-              onClick={() =>
-                downloadOfficialZusPdf({
-                  persona: activePersona,
-                  mom,
-                  dad,
-                  scenario,
-                  params,
-                  result,
-                  forceForm: defaultFormKind,
-                })
-              }
+              onClick={() => {
+                void import('../utils/zusPdfGenerator.ts').then(
+                  ({ downloadOfficialZusPdf }) =>
+                    downloadOfficialZusPdf({
+                      persona: activePersona,
+                      mom,
+                      dad,
+                      scenario,
+                      params,
+                      result,
+                      forceForm: defaultFormKind,
+                    })
+                );
+              }}
               className="inline-flex items-center gap-2 whitespace-nowrap shrink-0 rounded-xl bg-[#00703C] px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#005A30]"
             >
               <Download className="h-4 w-4" />

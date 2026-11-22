@@ -13,41 +13,61 @@ export function AdminPanelView({ params, onChangeParams }: AdminPanelViewProps) 
   const [imgError, setImgError] = useState(false);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [adminKey, setAdminKey] = useState('');
+
+  const adminHeaders = () => ({
+    'Content-Type': 'application/json',
+    ...(import.meta.env.PROD ? { 'X-Admin-Key': adminKey } : {}),
+  });
 
   const persistParams = async (next: LegislativeParams, label = 'Zapisano na serwerze') => {
-    onChangeParams(next);
     setSaveError(null);
+    setSaveMessage(null);
     try {
       const response = await fetch('/api/params', {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: adminHeaders(),
         body: JSON.stringify(next),
       });
       if (!response.ok) {
-        throw new Error('Błąd zapisu parametrów.');
+        const data = await response.json().catch(() => null);
+        throw new Error(data?.error || 'Błąd zapisu parametrów.');
       }
+      onChangeParams(next);
       setSaveMessage(label);
-    } catch {
-      setSaveError('Zmiana działa lokalnie — nie udało się zapisać na serwerze.');
+    } catch (error) {
+      if (!import.meta.env.PROD) onChangeParams(next);
+      setSaveError(
+        error instanceof Error
+          ? error.message
+          : 'Zmiana działa lokalnie — nie udało się zapisać na serwerze.'
+      );
     }
   };
 
   const resetParams = async () => {
     setSaveError(null);
-    onChangeParams(DEFAULT_2026_PARAMS);
+    setSaveMessage(null);
     try {
-      const response = await fetch('/api/params/reset', { method: 'POST' });
+      const response = await fetch('/api/params/reset', {
+        method: 'POST',
+        headers: adminHeaders(),
+      });
       if (response.ok) {
         const data = await response.json();
-        if (data?.params) {
-          onChangeParams(data.params);
-        }
+        onChangeParams(data?.params ?? data ?? DEFAULT_2026_PARAMS);
         setSaveMessage('Przywrócono i zapisano stan prawny listopad 2026');
       } else {
-        throw new Error('Reset failed');
+        const data = await response.json().catch(() => null);
+        throw new Error(data?.error || 'Nie udało się przywrócić ustawień.');
       }
-    } catch {
-      setSaveError('Przywrócono lokalnie — nie udało się zresetować pliku serwera.');
+    } catch (error) {
+      if (!import.meta.env.PROD) onChangeParams(DEFAULT_2026_PARAMS);
+      setSaveError(
+        error instanceof Error
+          ? error.message
+          : 'Przywrócono lokalnie — nie udało się zresetować pliku serwera.'
+      );
     }
   };
 
@@ -83,8 +103,26 @@ export function AdminPanelView({ params, onChangeParams }: AdminPanelViewProps) 
               Panel Legislacyjny i Parametry Systemowe
             </h1>
             <p className="max-w-2xl text-sm leading-relaxed text-[#475569]">
-              Wszystkie progi ustawowe, wskaźniki waloryzacji i stawki zasiłkowe są parametryzowane bez ingerencji w kod silnika i zapisywane po stronie serwera.
+              Wszystkie progi ustawowe, wskaźniki waloryzacji i stawki zasiłkowe są parametryzowane bez ingerencji w kod silnika.
             </p>
+            {import.meta.env.PROD && (
+              <label className="block max-w-md space-y-1.5">
+                <span className="block text-xs font-semibold text-[#334155]">
+                  Klucz administratora
+                </span>
+                <input
+                  type="password"
+                  autoComplete="current-password"
+                  value={adminKey}
+                  onChange={(event) => setAdminKey(event.target.value)}
+                  placeholder="Wprowadź ADMIN_ACCESS_KEY"
+                  className="w-full rounded-lg border border-[#CBD5E1] bg-white px-3 py-2 text-sm text-[#0F172A] outline-none focus:border-[#00703C] focus:ring-2 focus:ring-[#00703C]/15"
+                />
+                <span className="block text-xs leading-relaxed text-[#64748B]">
+                  Klucz jest wysyłany tylko przy zapisie i pozostaje w pamięci tej karty.
+                </span>
+              </label>
+            )}
             <div className="flex flex-wrap items-center gap-3">
               <button
                 type="button"

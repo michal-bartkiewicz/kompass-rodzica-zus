@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import { timingSafeEqual } from 'node:crypto';
 import express from 'express';
 import fs from 'node:fs';
 import http from 'node:http';
@@ -14,9 +15,36 @@ import type { AuditInput, FormType, InsuranceTitle, LegislativeParams } from './
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PORT = 3000;
+const HOST =
+  process.env.HOST || (process.env.NODE_ENV === 'production' ? '0.0.0.0' : '127.0.0.1');
 const MODEL_NAME = process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite';
 const DATA_DIR = path.resolve(__dirname, '.data');
 const PARAMS_FILE = path.join(DATA_DIR, 'params.json');
+
+function canChangeParams(providedKey?: string): boolean {
+  if (process.env.NODE_ENV !== 'production') return true;
+
+  const expectedKey = process.env.ADMIN_ACCESS_KEY;
+  if (!expectedKey || !providedKey) return false;
+  const expected = Buffer.from(expectedKey);
+  const provided = Buffer.from(providedKey);
+  return expected.length === provided.length && timingSafeEqual(expected, provided);
+}
+
+function rejectUnauthorizedParamsChange(
+  req: express.Request,
+  res: express.Response
+): boolean {
+  if (canChangeParams(req.get('X-Admin-Key'))) return false;
+
+  const keyConfigured = Boolean(process.env.ADMIN_ACCESS_KEY);
+  res.status(keyConfigured ? 403 : 503).json({
+    error: keyConfigured
+      ? 'Podany klucz administratora jest nieprawidłowy.'
+      : 'Zmiany parametrów w produkcji są wyłączone. Ustaw ADMIN_ACCESS_KEY na serwerze.',
+  });
+  return true;
+}
 
 const PARAM_LIMITS: Partial<Record<keyof LegislativeParams, [number, number]>> = {
   minWage: [1, 100_000],
@@ -168,6 +196,7 @@ async function startServer() {
   });
 
   app.put('/api/params', (req, res) => {
+    if (rejectUnauthorizedParamsChange(req, res)) return;
     try {
       const body = req.body ?? {};
       if (typeof body !== 'object' || Array.isArray(body)) {
@@ -185,7 +214,8 @@ async function startServer() {
     }
   });
 
-  app.post('/api/params/reset', (_req, res) => {
+  app.post('/api/params/reset', (req, res) => {
+    if (rejectUnauthorizedParamsChange(req, res)) return;
     try {
       const saved = saveStoredParams(DEFAULT_2026_PARAMS);
       res.json(saved);
@@ -602,7 +632,7 @@ Zwróć odpowiedź w JSON z polami: answer (zwięzła, czytelna odpowiedź bez z
     app.use(vite.middlewares);
   }
 
-  httpServer.listen(PORT, '0.0.0.0', () => {
+  httpServer.listen(PORT, HOST, () => {
     console.log(`Kompas Rodzica ZUS działa pod adresem http://localhost:${PORT}`);
   });
 }

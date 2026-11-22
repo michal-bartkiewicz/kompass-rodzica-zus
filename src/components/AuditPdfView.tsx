@@ -20,8 +20,8 @@ import type {
   InsuranceTitle,
   LegislativeParams,
 } from '../engine/types.ts';
+import type { SampleAuditKind } from '../utils/zusPdfGenerator.ts';
 import { prepareAuditDocument } from '../utils/pdfScanRasterizer.ts';
-import { downloadSampleAuditPdf } from '../utils/zusPdfGenerator.ts';
 
 interface OcrMeta {
   mode: string;
@@ -48,6 +48,7 @@ export function AuditPdfView({
   );
   const [fileName, setFileName] = useState<string>('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [downloadingSample, setDownloadingSample] = useState<SampleAuditKind | null>(null);
   const [statusLabel, setStatusLabel] = useState<string>('');
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [serverVerdict, setServerVerdict] = useState<AuditVerdict | null>(null);
@@ -75,6 +76,19 @@ export function AuditPdfView({
   ) => {
     setServerVerdict(null);
     setCurrentInput((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleDownloadSamplePdf = async (kind: SampleAuditKind) => {
+    setDownloadingSample(kind);
+    setErrorMsg(null);
+    try {
+      const { downloadSampleAuditPdf } = await import('../utils/zusPdfGenerator.ts');
+      downloadSampleAuditPdf(kind);
+    } catch {
+      setErrorMsg('Nie udało się przygotować syntetycznego pliku PDF. Spróbuj ponownie.');
+    } finally {
+      setDownloadingSample(null);
+    }
   };
 
   const handleSelectCurated = (id: string) => {
@@ -221,26 +235,53 @@ export function AuditPdfView({
 
             <div className="space-y-2 border-t border-[#E2E8F0] pt-3">
               <div className="text-xs font-semibold text-[#475569]">
-                Nie masz pliku pod ręką? Pobierz syntetyczny PDF demo do przetestowania funkcjonalności:
+                Nie masz pliku pod ręką? Pobierz jeden z syntetycznych dokumentów do testów:
               </div>
-              <div className="flex flex-wrap gap-2">
+              <div className="grid gap-2 sm:grid-cols-2">
+                {([
+                  { form: 'ZAM', label: 'ZAM · wniosek rodzica' },
+                  { form: 'Z-3', label: 'Z-3 · pracownik etatowy' },
+                  { form: 'Z-3a', label: 'Z-3a · umowa zlecenia' },
+                  { form: 'ZAS-53', label: 'ZAS-53 · L4 w ciąży' },
+                ] as const).map(({ form, label }) => (
+                  <button
+                    key={form}
+                    type="button"
+                    disabled={downloadingSample !== null}
+                    onClick={() => void handleDownloadSamplePdf(form)}
+                    className="inline-flex items-center justify-start gap-1.5 rounded-lg border border-[#CBD5E1] bg-[#F8FAFC] px-3 py-2 text-left text-xs font-semibold text-[#0F172A] transition-colors hover:border-[#00703C] hover:bg-[#ECFDF5]"
+                  >
+                    {downloadingSample === form ? (
+                      <Loader2 className="h-3.5 w-3.5 shrink-0 animate-spin text-[#00703C]" />
+                    ) : (
+                      <Download className="h-3.5 w-3.5 shrink-0 text-[#00703C]" />
+                    )}
+                    <span>{downloadingSample === form ? 'Przygotowuję PDF…' : label}</span>
+                  </button>
+                ))}
+              </div>
+              <details className="group text-xs">
+                <summary className="cursor-pointer font-semibold text-[#64748B] hover:text-[#00703C]">
+                  Pokaż również archiwalny druk Z-3b
+                </summary>
                 <button
                   type="button"
-                  onClick={() => downloadSampleAuditPdf('Z-3b')}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-[#CBD5E1] bg-[#F8FAFC] px-3 py-1.5 text-xs font-semibold text-[#0F172A] transition-colors hover:bg-[#ECFDF5] hover:border-[#00703C]"
+                  disabled={downloadingSample !== null}
+                  onClick={() => void handleDownloadSamplePdf('Z-3b')}
+                  className="mt-2 inline-flex items-center gap-1.5 rounded-lg border border-[#CBD5E1] bg-[#F8FAFC] px-3 py-2 text-left font-semibold text-[#0F172A] transition-colors hover:border-[#00703C] hover:bg-[#ECFDF5]"
                 >
-                  <Download className="h-3.5 w-3.5 text-[#00703C]" />
-                  <span>Przykładowy PDF: Z-3b (B2B)</span>
+                  {downloadingSample === 'Z-3b' ? (
+                    <Loader2 className="h-3.5 w-3.5 shrink-0 animate-spin text-[#00703C]" />
+                  ) : (
+                    <Download className="h-3.5 w-3.5 shrink-0 text-[#00703C]" />
+                  )}
+                  <span>
+                    {downloadingSample === 'Z-3b'
+                      ? 'Przygotowuję PDF…'
+                      : 'Z-3b · druk wycofany 24.10.2026 r.'}
+                  </span>
                 </button>
-                <button
-                  type="button"
-                  onClick={() => downloadSampleAuditPdf('ZAS-53')}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-[#CBD5E1] bg-[#F8FAFC] px-3 py-1.5 text-xs font-semibold text-[#0F172A] transition-colors hover:bg-[#ECFDF5] hover:border-[#00703C]"
-                >
-                  <Download className="h-3.5 w-3.5 text-[#00703C]" />
-                  <span>Przykładowy PDF: ZAS-53 (L4 ciąża)</span>
-                </button>
-              </div>
+              </details>
             </div>
 
             {scanPreviews.length > 0 && (

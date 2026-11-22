@@ -30,7 +30,6 @@ import {
   formatOfficialFormAsPlainText,
   type OfficialFormKind,
 } from '../utils/officialForms.ts';
-import { downloadOfficialZusPdf } from '../utils/zusPdfGenerator.ts';
 import { PrintableFormSheet } from './PrintableFormSheet.tsx';
 import type { AuthSession } from './ZusLoginModal.tsx';
 
@@ -483,17 +482,20 @@ export function EcosystemView({
                 <div className="flex flex-wrap items-center gap-2">
                   <button
                     type="button"
-                    onClick={() =>
-                      downloadOfficialZusPdf({
-                        persona,
-                        mom,
-                        dad,
-                        scenario,
-                        params,
-                        result: calcResult,
-                        forceForm: selectedOfficialKind,
-                      })
-                    }
+                    onClick={() => {
+                      void import('../utils/zusPdfGenerator.ts').then(
+                        ({ downloadOfficialZusPdf }) =>
+                          downloadOfficialZusPdf({
+                            persona,
+                            mom,
+                            dad,
+                            scenario,
+                            params,
+                            result: calcResult,
+                            forceForm: selectedOfficialKind,
+                          })
+                      );
+                    }}
                     className="inline-flex items-center gap-1.5 rounded-lg bg-[#00703C] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#005A30]"
                   >
                     <Download className="h-3.5 w-3.5" />
