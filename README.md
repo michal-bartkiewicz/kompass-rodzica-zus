@@ -55,10 +55,10 @@ Serwer deweloperski uruchamia aplikację na porcie 3000. Klucz `GEMINI_API_KEY` 
 
 ## Ograniczenia prototypu
 
-To demonstracja, nie system do podejmowania decyzji urzędowych. Profile i zestawy audytowe są syntetyczne, integracje zewnętrzne są symulowane, a generowane dokumenty nie są oficjalnymi drukami. Zmiany parametrów w produkcji wymagają `ADMIN_ACCESS_KEY`; w trybie deweloperskim panel jest dostępny bez klucza. Aplikacja nie prowadzi jeszcze dziennika zmian. Przed wdrożeniem trzeba dodać audyt zmian, ustalić bezpieczny sposób obsługi dokumentów oraz zweryfikować reguły z aktualnymi źródłami ZUS.
+To demonstracja, nie system do podejmowania decyzji urzędowych. Profile i zestawy audytowe są syntetyczne, integracje zewnętrzne są symulowane, a generowane dokumenty nie są oficjalnymi drukami. Zmiany parametrów w produkcji wymagają `ADMIN_ACCESS_KEY`; wpisujący je operator jest identyfikowany przez `ADMIN_ACTOR_ID`. Zapis i dziennik zmian (`params-audit.jsonl`) znajdują się w `DATA_DIR`; w hostingu należy wskazać tam trwały wolumen, inaczej dane mogą zniknąć po restarcie lub wdrożeniu. Tryb deweloperski działa bez klucza administratora i zapisuje operatora jako `developer`. Przed wdrożeniem trzeba jeszcze zapewnić bezpieczną obsługę dokumentów oraz zweryfikować reguły z aktualnymi źródłami ZUS.
 
 ## Kryteria wyzwania
 
 Projekt łączy przewodnik, kalkulator, symulację danych i audyt dokumentów w jednym interfejsie. Interfejs jest responsywny, a AI jest ograniczone do odczytu dokumentów i pomocy w interpretacji tekstów prawnych; obliczenia pozostają deterministyczne. W repozytorium są materiały źródłowe oraz syntetyczne przypadki demonstracyjne. Oficjalne przykładowe sprawy ZUS nie są częścią tego repozytorium.
 
-Materiały wymagane przy zgłoszeniu — prezentację (do 10 slajdów), zrzuty ekranu i film demonstracyjny (do 3 minut) — należy dołączyć osobno do zgłoszenia.
+Prezentacja (9 slajdów) i zrzuty ekranu są w katalogu `submission/`. Film demonstracyjny (do 3 minut) pozostaje do przygotowania w kolejnym etapie.

@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Kompas Rodzica ZUS — prezentacja</title>
+  <style>
+    @page { size: 16in 9in; margin: 0; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #e8eee9; color: #142c2d; font-family: Arial, Helvetica, sans-serif; }
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .slide { position: relative; width: 16in; height: 9in; padding: .62in .72in .58in; overflow: hidden; background: #fffdf7; page-break-after: always; break-after: page; }
+    .slide:last-child { page-break-after: auto; break-after: auto; }
+    .slide::before { content: ""; position: absolute; left: 0; top: 0; width: .13in; height: 100%; background: #087944; }
+    .topline { display: flex; justify-content: space-between; align-items: center; color: #55706a; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+    .brand { display: flex; gap: 9px; align-items: center; color: #087944; letter-spacing: .02em; text-transform: none; font-size: 13px; }
+    .brand-mark { display: inline-flex; width: 27px; height: 27px; border: 2px solid #087944; border-radius: 50%; align-items: center; justify-content: center; font-size: 16px; line-height: 1; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin: .34in 0 .18in; color: #122a32; font-size: 49px; line-height: 1.05; letter-spacing: -.035em; }
+    h2 { margin: .24in 0 .12in; color: #122a32; font-size: 34px; line-height: 1.12; letter-spacing: -.025em; }
+    h3 { margin-bottom: 7px; color: #132f2e; font-size: 17px; }
+    p { color: #4c6461; font-size: 16px; line-height: 1.5; }
+    .eyebrow { color: #087944; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .accent { color: #087944; }
+    .muted { color: #6a807a; }
+    .footer { position: absolute; right: .72in; bottom: .29in; left: .72in; display: flex; justify-content: space-between; color: #77908a; font-size: 10px; }
+    .cover { display: grid; grid-template-columns: 46% 54%; gap: .25in; height: 7.05in; align-items: center; }
+    .cover h1 { font-size: 61px; }
+    .cover-copy { padding-right: .1in; }
+    .cover-copy p { max-width: 5.7in; font-size: 19px; }
+    .cover-shot { position: relative; overflow: hidden; height: 6.2in; border: 1px solid #d6e7dc; border-radius: 25px; background: #eff9f2; box-shadow: 0 24px 55px rgba(26, 71, 49, .13); }
+    .cover-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+    .chips { display: flex; gap: 9px; flex-wrap: wrap; margin-top: .32in; }
+    .chip { display: inline-flex; padding: 9px 13px; border: 1px solid #d4e7db; border-radius: 99px; color: #176344; background: #f5fbf6; font-size: 12px; font-weight: 700; }
+    .layout { display: grid; grid-template-columns: 41% 59%; gap: .38in; align-items: center; height: 6.55in; }
+    .layout.wide-shot { grid-template-columns: 34% 66%; }
+    .copy { padding-right: .12in; }
+    .copy p { margin-bottom: 15px; }
+    .points { display: grid; gap: 12px; margin-top: .24in; }
+    .point { display: flex; align-items: flex-start; gap: 11px; color: #425d57; font-size: 14px; line-height: 1.4; }
+    .number { flex: none; width: 27px; height: 27px; display: flex; justify-content: center; align-items: center; border-radius: 50%; color: #087944; background: #e7f5ea; font-size: 12px; font-weight: 800; }
+    .shot { position: relative; overflow: hidden; margin: 0; border: 1px solid #d7e5de; border-radius: 15px; background: #fff; box-shadow: 0 18px 40px rgba(26, 71, 49, .12); }
+    .shot img { display: block; width: 100%; height: 5.8in; object-fit: cover; object-position: top center; }
+    .shot.tall img { height: 6.35in; }
+    .shot.mobile img { height: 5.6in; object-fit: contain; background: #eaf2ee; }
+    .caption { padding: 8px 12px; color: #647a74; background: #fff; font-size: 10px; }
+    .callout { margin-top: .2in; padding: 13px 15px; border-left: 3px solid #1a9a5b; border-radius: 0 10px 10px 0; background: #eef8f0; color: #35594d; font-size: 13px; line-height: 1.4; }
+    .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 11px; margin-top: .22in; }
+    .card { padding: 13px; border: 1px solid #dce9e1; border-radius: 12px; background: #fff; }
+    .card strong { display: block; margin-bottom: 5px; color: #087944; font-size: 13px; }
+    .card span { color: #536b65; font-size: 12px; line-height: 1.35; }
+    .flow { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: .3in; }
+    .flow .card { min-height: 1.2in; }
+    .flow .number { margin-bottom: 9px; }
+    .architecture { display: grid; gap: 9px; margin-top: .24in; }
+    .architecture div { display: flex; align-items: center; gap: 10px; padding: 11px 13px; border: 1px solid #dce9e1; border-radius: 11px; background: #fff; color: #3f5c55; font-size: 13px; }
+    .architecture b { min-width: 1.4in; color: #087944; }
+    .note { position: absolute; right: .72in; bottom: .63in; color: #68817a; font-size: 11px; }
+  </style>
+</head>
+<body>
+  <section class="slide">
+    <div class="topline"><div class="brand"><span class="brand-mark">✦</span> Kompas Rodzica ZUS</div><span>HackYeah · wyzwanie ZUS</span></div>
+    <div class="cover">
+      <div class="cover-copy">
+        <div class="eyebrow">Informacja, plan i spokojniejsza decyzja</div>
+        <h1>Kompas<br><span class="accent">Rodzica ZUS</span></h1>
+        <p>Przyjazny przewodnik po urlopach i świadczeniach dla przyszłych rodziców — dopasowany do indywidualnej sytuacji rodziny.</p>
+        <div class="chips"><span class="chip">Kalkulator dla dwojga</span><span class="chip">Audyt dokumentów</span><span class="chip">Symulacja eZUS</span></div>
+      </div>
+      <figure class="cover-shot"><img src="screenshots/01-start.jpg" alt="Ekran startowy Kompasu Rodzica ZUS"></figure>
+    </div>
+    <div class="footer"><span>Demonstracja konkursowa · stan prawny aplikacji: listopad 2026</span><span>01 / 09</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="topline"><div class="brand"><span class="brand-mark">✦</span> Kompas Rodzica ZUS</div><span>01 · Prosta ścieżka</span></div>
+    <div class="layout">
+      <div class="copy">
+        <div class="eyebrow">Od pytania do planu</div>
+        <h2>Mniej formularzy na starcie. Więcej jasnych kroków.</h2>
+        <p>Użytkownik zaczyna od fikcyjnego profilu albo własnych danych. Aplikacja prowadzi go od orientacyjnego wyniku do dokumentów i dalszych działań.</p>
+        <div class="flow">
+          <div class="card"><span class="number">1</span><h3>Wybierz</h3><span>Profil demonstracyjny lub dane wpisane samodzielnie.</span></div>
+          <div class="card"><span class="number">2</span><h3>Porównaj</h3><span>Warianty zasiłku, terminy, ryzyka i udział drugiego rodzica.</span></div>
+          <div class="card"><span class="number">3</span><h3>Sprawdź</h3><span>Dokumenty, ścieżkę złożenia i projekt PDF do weryfikacji.</span></div>
+        </div>
+        <div class="callout">Logowanie mObywatel i dane konta są symulowane. Aplikacja nie łączy się z systemami ZUS.</div>
+      </div>
+      <figure class="shot tall"><img src="screenshots/02-profil-demo.jpg" alt="Wybór syntetycznego profilu demo"></figure>
+    </div>
+    <div class="footer"><span>Fikcyjne profile nie wymagają podawania danych logowania.</span><span>02 / 09</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="topline"><div class="brand"><span class="brand-mark">✦</span> Kompas Rodzica ZUS</div><span>02 · Kalkulator</span></div>
+    <div class="layout wide-shot">
+      <div class="copy">
+        <div class="eyebrow">Sytuacja konkretnej rodziny</div>
+        <h2>Obliczenia, które obejmują oboje rodziców.</h2>
+        <p>Kalkulator zestawia dwa warianty zasiłku, pokazuje łączną kwotę oraz rozkłada ją na rodziców.</p>
+        <div class="points">
+          <div class="point"><span class="number">✓</span><span>Podstawa i tytuł ubezpieczenia każdego rodzica.</span></div>
+          <div class="point"><span class="number">✓</span><span>81,5% albo 100% + 70%, z planem urlopów i terminów.</span></div>
+          <div class="point"><span class="number">✓</span><span>Scenariusze ciąży, wcześniactwa, adopcji i pieczy zastępczej.</span></div>
+          <div class="point"><span class="number">✓</span><span>Wyniki liczy deterministyczny silnik reguł.</span></div>
+        </div>
+        <div class="callout">Wynik wspiera planowanie; przed złożeniem dokumentów należy zweryfikować aktualne zasady i formularze.</div>
+      </div>
+      <figure class="shot"><img src="screenshots/03-kalkulator.jpg" alt="Kalkulator porównujący warianty świadczeń dla rodziny"><figcaption class="caption">Widok przykładowego, fikcyjnego profilu.</figcaption></figure>
+    </div>
+    <div class="footer"><span>Kwoty i profile na zrzucie są demonstracyjne.</span><span>03 / 09</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="topline"><div class="brand"><span class="brand-mark">✦</span> Kompas Rodzica ZUS</div><span>03 · Audyt dokumentów</span></div>
+    <div class="layout wide-shot">
+      <div class="copy">
+        <div class="eyebrow">Dokument → dane → wyjaśnienie</div>
+        <h2>Wynik audytu jest czytelny, szczegóły są na żądanie.</h2>
+        <p>Audytor rozpoznaje druk, odczytuje istotne pola i sprawdza je w tym samym silniku reguł co kalkulator.</p>
+        <div class="cards">
+          <div class="card"><strong>Gotowe przykłady</strong><span>Syntetyczne ZAM, Z-3, Z-3a, ZAS-53 oraz archiwalny Z-3b.</span></div>
+          <div class="card"><strong>Kontrola rodzica</strong><span>Możliwość sprawdzenia i poprawy rozpoznanych danych.</span></div>
+          <div class="card"><strong>Jasny werdykt</strong><span>Warunki i podstawa prawna rozwijane dopiero w razie potrzeby.</span></div>
+          <div class="card"><strong>Bez fikcji o ZUS</strong><span>Pliki demo są oznaczone jako syntetyczne, nie jako sprawy urzędowe.</span></div>
+        </div>
+        <div class="callout">Materiały źródłowe z repozytorium nie zawierają zanonimizowanych spraw konkursowych; aplikacja nie przedstawia syntetycznych danych jako oficjalnych przykładów.</div>
+      </div>
+      <figure class="shot"><img src="screenshots/04-audytor-pdf.jpg" alt="Audytor PDF z syntetycznym dokumentem i wynikiem sprawy"><figcaption class="caption">Przykład syntetyczny — dane konkursowe nie są dostępne w źródłowym zestawie PDF-ów.</figcaption></figure>
+    </div>
+    <div class="footer"><span>Tekst i obrazy dokumentu mogą być wysłane do Gemini, jeśli usługa jest skonfigurowana.</span><span>04 / 09</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="topline"><div class="brand"><span class="brand-mark">✦</span> Kompas Rodzica ZUS</div><span>04 · Symulacje</span></div>
+    <div class="layout wide-shot">
+      <div class="copy">
+        <div class="eyebrow">Ścieżka po wyniku</div>
+        <h2>Od uprawnień do kolejnego kroku.</h2>
+        <p>Symulator pokazuje, jak użytkownik mógłby sprawdzić konto, zaświadczenia i złożyć dokument — bez udawania prawdziwego połączenia.</p>
+        <div class="points">
+          <div class="point"><span class="number">✓</span><span>Przykładowe logowanie mObywatel i profil ubezpieczonego.</span></div>
+          <div class="point"><span class="number">✓</span><span>Historia e-ZLA i limit okresu zasiłkowego.</span></div>
+          <div class="point"><span class="number">✓</span><span>Symulacja pytania do PUE oraz podgląd konta.</span></div>
+          <div class="point"><span class="number">✓</span><span>Przykładowa ścieżka wniosku USC i kreator projektu PDF.</span></div>
+        </div>
+        <div class="callout">Każdy status, saldo i potwierdzenie na ekranie są przykładowe i nie pochodzą z ZUS ani USC.</div>
+      </div>
+      <figure class="shot"><img src="screenshots/05-symulator-ezus.jpg" alt="Symulator eZUS, e-ZLA, USC i generatorów dokumentów"><figcaption class="caption">Dane konta i statusy są przykładowe.</figcaption></figure>
+    </div>
+    <div class="footer"><span>Dokument PDF jest projektem demonstracyjnym, a nie oficjalnym drukiem.</span><span>05 / 09</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="topline"><div class="brand"><span class="brand-mark">✦</span> Kompas Rodzica ZUS</div><span>05 · Asystent prawa</span></div>
+    <div class="layout wide-shot">
+      <div class="copy">
+        <div class="eyebrow">Wyjaśnienie zamiast żargonu</div>
+        <h2>Odpowiedź prowadzi do przepisu.</h2>
+        <p>Asystent pomaga zrozumieć regułę i pokazuje powiązane fragmenty prawa oraz temat, którego dotyczy odpowiedź.</p>
+        <div class="cards">
+          <div class="card"><strong>Lokalny korpus</strong><span>Odpowiedzi korzystają z przygotowanych fragmentów ustaw i rozporządzeń.</span></div>
+          <div class="card"><strong>Źródła pod ręką</strong><span>Odnośniki do artykułów można otworzyć w widoku przepisu.</span></div>
+          <div class="card"><strong>AI opcjonalne</strong><span>Po konfiguracji Gemini formułuje odpowiedź z wybranym kontekstem.</span></div>
+          <div class="card"><strong>Kwoty liczy silnik</strong><span>Asystent nie zastępuje kalkulatora i nie zmienia jego wyniku.</span></div>
+        </div>
+        <div class="callout">Przy korzystaniu z Gemini pytanie i kontekst ostatnich wiadomości są wysyłane do tej usługi; interfejs informuje o tym przed użyciem.</div>
+      </div>
+      <figure class="shot"><img src="screenshots/06-asystent-prawa.jpg" alt="Asystent prawa z listą pytań i miejscem na podstawę prawną"><figcaption class="caption">Pytania na zrzucie są gotowymi tematami demonstracyjnymi.</figcaption></figure>
+    </div>
+    <div class="footer"><span>Nie wpisuj danych osobowych ani szczegółów prawdziwej sprawy.</span><span>06 / 09</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="topline"><div class="brand"><span class="brand-mark">✦</span> Kompas Rodzica ZUS</div><span>06 · Scenariusze i ryzyka</span></div>
+    <div class="layout">
+      <div class="copy">
+        <div class="eyebrow">Różne historie rodzin</div>
+        <h2>Wyjątki nie giną w jednym kalkulatorze.</h2>
+        <p>Gotowe scenariusze pomagają sprawdzić uprawnienia i ostrzeżenia w sytuacjach, które łatwo przeoczyć w ogólnym poradniku.</p>
+        <div class="cards">
+          <div class="card"><strong>Ciąża i choroba</strong><span>Okres wyczekiwania, kod B, dług składkowy i limit 270 dni.</span></div>
+          <div class="card"><strong>Wcześniactwo</strong><span>Hospitalizacja i dodatkowy urlop uzupełniający.</span></div>
+          <div class="card"><strong>Adopcja i piecza</strong><span>Wiek dziecka, wymiar i wariant Za życiem.</span></div>
+          <div class="card"><strong>Dwoje rodziców</strong><span>Podział tygodni, część nieprzenoszalna i wspólne planowanie.</span></div>
+        </div>
+        <div class="callout">Każdy scenariusz w demonstracji jest syntetyczny. Werdykt pokazuje reguły, które wpłynęły na wynik.</div>
+      </div>
+      <figure class="shot tall"><img src="screenshots/03-kalkulator.jpg" alt="Przykładowy wynik kalkulatora z sekcją dotyczącą zasiłku chorobowego w ciąży"></figure>
+    </div>
+    <div class="footer"><span>Scenariusze wspierają testy praktyczne i rozmowę z rodzicem.</span><span>07 / 09</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="topline"><div class="brand"><span class="brand-mark">✦</span> Kompas Rodzica ZUS</div><span>07 · Technologia i bezpieczeństwo</span></div>
+    <div class="layout">
+      <div class="copy">
+        <div class="eyebrow">Pomoc AI, kontrola po stronie aplikacji</div>
+        <h2>AI pomaga odczytać. Reguły odpowiadają za liczby.</h2>
+        <p>Projekt łączy prosty interfejs React z serwerem API i deterministycznym silnikiem obliczeń.</p>
+        <div class="architecture">
+          <div><b>Interfejs React</b><span>Formularze, wyniki, animacje i dostępność.</span></div>
+          <div><b>Silnik ZUS</b><span>Reguły, kwoty, terminy i ryzyka — deterministycznie.</span></div>
+          <div><b>Gemini opcjonalnie</b><span>OCR dokumentu oraz pomoc w interpretacji prawa.</span></div>
+          <div><b>Tryb demo</b><span>Brak prawdziwego połączenia z ZUS; tylko profile testowe.</span></div>
+        </div>
+        <div class="callout">W produkcji panel parametrów wymaga klucza administratora. Historia zapisów trafia do dziennika, a dane można umieścić na trwałym wolumenie przez `DATA_DIR`.</div>
+      </div>
+      <figure class="shot"><img src="screenshots/04-audytor-pdf.jpg" alt="Jawna informacja o obsłudze dokumentów w audytorze"></figure>
+    </div>
+    <div class="footer"><span>Przed wdrożeniem wymagane są integracje, audyt i weryfikacja reguł.</span><span>08 / 09</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="topline"><div class="brand"><span class="brand-mark">✦</span> Kompas Rodzica ZUS</div><span>08 · Testy i dalszy rozwój</span></div>
+    <div class="layout">
+      <div class="copy">
+        <div class="eyebrow">Działająca demonstracja</div>
+        <h2>Gotowa do przejścia przez główne ścieżki.</h2>
+        <p>Projekt można uruchomić lokalnie i sprawdzić na syntetycznych profilach oraz przykładowych dokumentach.</p>
+        <div class="points">
+          <div class="point"><span class="number">✓</span><span>Kalkulator, audyt PDF, symulatory, asystent prawa i pomoc.</span></div>
+          <div class="point"><span class="number">✓</span><span>Widoki dostosowane do desktopu i telefonu.</span></div>
+          <div class="point"><span class="number">✓</span><span>29 testów silnika i generatora formularzy przechodzi.</span></div>
+          <div class="point"><span class="number">→</span><span>Przed wdrożeniem: integracje, przegląd bezpieczeństwa i potwierdzenie stanu prawa.</span></div>
+        </div>
+        <div class="callout">Uruchomienie: `npm install` → `npm run dev`. Dokumentacja i kryteria zadania są w repozytorium projektu.</div>
+      </div>
+      <figure class="shot mobile"><img src="screenshots/07-mobile.jpg" alt="Responsywny widok Kompasu Rodzica ZUS na telefonie"><figcaption class="caption">Widok mobilny — układ dopasowuje się do wąskiego ekranu.</figcaption></figure>
+    </div>
+    <div class="footer"><span>Kompas Rodzica ZUS · demonstracja konkursowa</span><span>09 / 09</span></div>
+  </section>
+</body>
+</html>

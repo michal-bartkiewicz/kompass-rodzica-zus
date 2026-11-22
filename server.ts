@@ -18,8 +18,11 @@ const PORT = 3000;
 const HOST =
   process.env.HOST || (process.env.NODE_ENV === 'production' ? '0.0.0.0' : '127.0.0.1');
 const MODEL_NAME = process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite';
-const DATA_DIR = path.resolve(__dirname, '.data');
+const DATA_DIR = process.env.DATA_DIR
+  ? path.resolve(process.env.DATA_DIR)
+  : path.resolve(__dirname, '.data');
 const PARAMS_FILE = path.join(DATA_DIR, 'params.json');
+const PARAMS_AUDIT_FILE = path.join(DATA_DIR, 'params-audit.jsonl');
 
 function canChangeParams(providedKey?: string): boolean {
   if (process.env.NODE_ENV !== 'production') return true;
@@ -112,10 +115,54 @@ function loadStoredParams(): LegislativeParams {
   return { ...DEFAULT_2026_PARAMS };
 }
 
-function saveStoredParams(next: Partial<LegislativeParams>): LegislativeParams {
+function saveStoredParams(
+  next: Partial<LegislativeParams>,
+  action: 'update' | 'reset'
+): LegislativeParams {
   const sanitized = validateStoredParams(next);
+  const previous = loadStoredParams();
+  const previousFile = fs.existsSync(PARAMS_FILE)
+    ? fs.readFileSync(PARAMS_FILE, 'utf-8')
+    : null;
   fs.mkdirSync(DATA_DIR, { recursive: true });
-  fs.writeFileSync(PARAMS_FILE, JSON.stringify(sanitized, null, 2), 'utf-8');
+
+  const tempFile = path.join(DATA_DIR, `.params-${process.pid}-${Date.now()}.tmp`);
+  let paramsWritten = false;
+  try {
+    fs.writeFileSync(tempFile, JSON.stringify(sanitized, null, 2), 'utf-8');
+    fs.renameSync(tempFile, PARAMS_FILE);
+    paramsWritten = true;
+
+    const changedParams = Object.fromEntries(
+      (Object.keys(DEFAULT_2026_PARAMS) as Array<keyof LegislativeParams>)
+        .filter((key) => previous[key] !== sanitized[key])
+        .map((key) => [key, { from: previous[key], to: sanitized[key] }])
+    );
+    const auditEntry = {
+      timestamp: new Date().toISOString(),
+      actorId:
+        process.env.ADMIN_ACTOR_ID?.trim() ||
+        (process.env.NODE_ENV === 'production' ? 'administrator' : 'developer'),
+      action,
+      changedParams,
+    };
+    fs.appendFileSync(
+      PARAMS_AUDIT_FILE,
+      `${JSON.stringify(auditEntry)}\n`,
+      { encoding: 'utf-8', mode: 0o600 }
+    );
+  } catch (error) {
+    if (fs.existsSync(tempFile)) fs.unlinkSync(tempFile);
+    if (paramsWritten) {
+      if (previousFile === null) {
+        if (fs.existsSync(PARAMS_FILE)) fs.unlinkSync(PARAMS_FILE);
+      } else {
+        fs.writeFileSync(PARAMS_FILE, previousFile, 'utf-8');
+      }
+    }
+    throw error;
+  }
+
   return sanitized;
 }
 
@@ -203,7 +250,7 @@ async function startServer() {
         res.status(400).json({ error: 'Nieprawidłowy obiekt parametrów legislacyjnych.' });
         return;
       }
-      const saved = saveStoredParams(body as Partial<LegislativeParams>);
+      const saved = saveStoredParams(body as Partial<LegislativeParams>, 'update');
       res.json(saved);
     } catch (error) {
       if (error instanceof ParamsValidationError) {
@@ -217,7 +264,7 @@ async function startServer() {
   app.post('/api/params/reset', (req, res) => {
     if (rejectUnauthorizedParamsChange(req, res)) return;
     try {
-      const saved = saveStoredParams(DEFAULT_2026_PARAMS);
+      const saved = saveStoredParams(DEFAULT_2026_PARAMS, 'reset');
       res.json(saved);
     } catch {
       res.status(500).json({ error: 'Nie udało się zresetować parametrów systemowych.' });
