@@ -1,0 +1,8 @@
+{
+  "name": "Kompas Rodzica ZUS",
+  "description": "Demonstracyjny przewodnik po świadczeniach rodzicielskich: kalkulator, audytor PDF, asystent prawny, profile testowe i Tryb Spokojnej Pomocy. Bez połączenia z eZUS.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

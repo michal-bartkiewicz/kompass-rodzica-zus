@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Nunito", system-ui, sans-serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    background-color: #FFFDF7;
+    color: #1E293B;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+  }
+
+  :focus-visible {
+    outline: 3px solid #0052a5;
+    outline-offset: 2px;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* WCAG High Contrast & Large Text Modes */
+html[data-large-text="true"] {
+  font-size: 18px;
+}
+
+html[data-high-contrast="true"] body {
+  background-color: #FFFFFF !important;
+  color: #000000 !important;
+}
+
+html[data-high-contrast="true"] :where(p, span, dd, dt, label, li):not(.text-white) {
+  color: #000000;
+}
+
+html[data-high-contrast="true"] button[class*="bg-[#0F172A]"],
+html[data-high-contrast="true"] button[class*="bg-[#0F172A]"] span,
+html[data-high-contrast="true"] button[class*="bg-[#00703C]"],
+html[data-high-contrast="true"] button[class*="bg-[#00703C]"] span,
+html[data-high-contrast="true"] button[class*="bg-[#0052a5]"],
+html[data-high-contrast="true"] button[class*="bg-[#0052a5]"] span,
+html[data-high-contrast="true"] button[class*="bg-[#334155]"],
+html[data-high-contrast="true"] button[class*="bg-[#334155]"] span {
+  color: #FFFFFF !important;
+}
+
+html[data-high-contrast="true"] section,
+html[data-high-contrast="true"] header,
+html[data-high-contrast="true"] nav {
+  border-color: #0F172A !important;
+}
+
+/* Print Layout: Show only the clearly marked demonstration document on A4 */
+.print-only-sheet {
+  display: none;
+}
+
+.form-preview-sheet {
+  display: block;
+  width: 100%;
+  max-width: 210mm;
+  margin-inline: auto;
+  color: #0f172a;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.form-preview-sheet h2 {
+  color: #0f172a;
+  letter-spacing: 0.025em;
+}
+
+.form-preview-sheet table {
+  background: #fff;
+  table-layout: fixed;
+}
+
+.form-preview-sheet td,
+.form-preview-sheet th {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 640px) {
+  .form-preview-sheet > table:first-of-type,
+  .form-preview-sheet > table:first-of-type tbody,
+  .form-preview-sheet > table:first-of-type tr {
+    display: block;
+  }
+
+  .form-preview-sheet > table:first-of-type td {
+    display: block;
+    width: 100% !important;
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm 15mm;
+  }
+
+  body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only-sheet {
+    display: block !important;
+    font-family: "DM Sans", Arial, sans-serif;
+    color: #000000 !important;
+    font-size: 10pt;
+    line-height: 1.35;
+  }
+}
