@@ -18,7 +18,7 @@ export function PrintableFormSheet({
           ? 'form-preview-sheet rounded-xl border border-[#E2E8F0] bg-white p-4 shadow-lg sm:p-7'
           : 'print-only-sheet'
       }
-      aria-label={`Projekt demonstracyjny ${spec.symbol}`}
+      aria-label={`Projekt wniosku ${spec.symbol}`}
     >
       <div className="mb-3 border-2 border-red-300 bg-red-50 px-3 py-2 text-center text-[9pt] font-extrabold text-red-900">
         PROJEKT TESTOWY — NIE JEST OFICJALNYM FORMULARZEM ZUS. NIE SKŁADAJ.

@@ -447,7 +447,7 @@ export function CalculatorView({
   return (
     <>
     <div className="space-y-6 no-print">
-      {/* Header + demo profile vs manual mode */}
+      {/* Example profiles and manual data entry */}
       <section className="overflow-hidden rounded-2xl border border-[#DCECE3] bg-white p-6 space-y-6">
         <div className="grid items-stretch gap-6 lg:grid-cols-12">
           <div className="flex flex-col justify-between space-y-4 lg:col-span-8">
@@ -456,7 +456,7 @@ export function CalculatorView({
                 Kalkulator Świadczeń Rodzicielskich
               </h1>
               <p className="max-w-2xl text-sm leading-relaxed text-[#475569]">
-                Kalkulator działa na fikcyjnych profilach demonstracyjnych albo danych wpisanych ręcznie. Nie łączy się z eZUS i nie pobiera danych z ZUS.
+                Możesz wybrać przykładowy profil z fikcyjnymi danymi albo wpisać własne. Kalkulator nie łączy się z eZUS ani nie pobiera danych z ZUS.
               </p>
             </div>
 
@@ -513,7 +513,7 @@ export function CalculatorView({
           </div>
         </div>
 
-        {/* Local demo profile readout */}
+        {/* Selected example profile readout */}
         <div className="border-t border-[#DCECE3] pt-5 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex flex-wrap items-center gap-2 text-xs font-bold text-[#00703C]">
@@ -1291,19 +1291,19 @@ export function CalculatorView({
         )}
       </section>
 
-      {/* Generated demonstration document draft */}
+      {/* Generated document draft */}
       <section className="rounded-2xl border border-[#DCECE3] bg-gradient-to-br from-[#F2FBF6]/70 to-white p-6 sm:p-8 space-y-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="space-y-1">
             <div className="inline-flex items-center gap-2 text-xs font-bold text-[#00703C]">
               <FileText className="h-4 w-4" />
-              <span>Projekt demonstracyjny · nie jest oficjalnym formularzem ZUS</span>
+              <span>Projekt wniosku · nie jest oficjalnym formularzem ZUS</span>
             </div>
             <h2 className="font-display text-xl font-extrabold text-[#0F172A] [text-wrap:balance]">
               Projekt dokumentu: {defaultFormTitle}
             </h2>
             <p className="max-w-2xl text-sm text-[#475569]">
-              To demonstracyjny szablon utworzony przez aplikację, a nie aktualny druk urzędowy. Sprawdź treść, właściwy formularz i wymagane załączniki na stronie ZUS przed użyciem.
+              To projekt przygotowany na podstawie obliczeń, a nie aktualny druk urzędowy. Sprawdź treść, właściwy formularz i wymagane załączniki na stronie ZUS przed złożeniem.
             </p>
           </div>
 

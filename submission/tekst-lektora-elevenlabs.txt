@@ -1,0 +1,43 @@
+# Tekst lektora do ElevenLabs
+
+## Kierunek głosu
+
+Ciepła, naturalna polszczyzna. Narratorka mówi w pierwszej osobie jak świeżo upieczona mama, która właśnie znalazła coś, co naprawdę ułatwiło jej ogarnięcie formalności. Słychać ulgę, radość i szczere zadowolenie; opowiada koleżance o swoim doświadczeniu i z przekonaniem poleca stronę. Za każdym razem nazwę projektu wymawiaj w całości: „Kompas Rodzica ZUS” — nie skracaj do samego „Kompas”. Brzmi serdecznie i żywo, bez przesadnej, reklamowej emfazy. Wygeneruj wszystkie fragmenty tym samym głosem. Nagłówków i czasów ujęć nie czytaj.
+
+Najlepiej wygeneruj każdy fragment osobno, żeby łatwo dopasować go do odpowiedniej sceny filmu. Cały tekst to około dwie minuty mowy, więc mieści się w bezpłatnym limicie pięciu minut.
+
+## 01 · Wprowadzenie · 00:00–00:08.75
+
+Po narodzinach mojego dziecka formalności przytłaczały mnie. Kompas Rodzica ZUS pomógł mi spokojnie ułożyć plan.
+
+## 02 · Symulacja logowania · 00:08.75–00:21.08
+
+Zaczęłam od fikcyjnego przypadku, żeby przejść wszystko bez stresu. To symulacja logowania: bez hasła, bez kodu i bez łączenia z e-ZUS. Mogłam też wpisać własne dane.
+
+## 03 · Kalkulator · 00:21.08–00:38.13
+
+Najbardziej pomógł mi kalkulator. Wpisałam formę zatrudnienia, termin porodu i podział opieki. Od razu zobaczyłam warianty wypłaty, kwoty dla nas obojga i ważne terminy. Wynik oblicza silnik reguł, więc mogłam łatwo porównać założenia.
+
+## 04 · Scenariusze · 00:38.13–00:57.63
+
+Doceniłam też, że Kompas Rodzica ZUS pokazuje ważne wyjątki. W przykładzie z umową zlecenia bez dobrowolnego ubezpieczenia chorobowego wyjaśnia, dlaczego nie przysługuje zasiłek chorobowy z tego ubezpieczenia. Scenariusz działalności przypomina o dziewięćdziesięciu dniach wyczekiwania na zasiłek chorobowy.
+
+## 05 · Audyt PDF · 00:57.63–01:12.13
+
+Doceniam, że po wgraniu dokumentu Kompas Rodzica ZUS pokazuje mi, co wymaga uwagi i dlaczego. Mogę otworzyć uzasadnienie i podstawę prawną. W prezentacji korzystamy wyłącznie z dokumentów testowych.
+
+## 06 · Symulator e-ZUS · 01:12.13–01:20.54
+
+Zobaczyłam, jak wygląda historia e-ZLA i dalsza ścieżka. Dane są fikcyjne; ekran nie łączy się z ZUS.
+
+## 07 · Generator wniosków · 01:20.54–01:36.25
+
+Gdy potrzebowałam formularza, generator przygotował projekt PDF. Wybrałam ZAM, ZAS-53 albo druk dla pracodawcy, sprawdziłam pola i pobrałam dokument. To projekt testowy, nie oficjalny druk.
+
+## 08 · Asystent prawa · 01:36.25–01:49.75
+
+Gdy pojawiły się pytania o przepisy, asystent wyjaśnił je prostym językiem i pokazał podstawę prawną. Odpowiedzi AI sprawdzam w źródłach, bo mogą się mylić. Kwoty oblicza silnik reguł.
+
+## 09 · Zakończenie · 01:49.75–02:02.83
+
+Kompas Rodzica ZUS dał mi poczucie, że wiem, co sprawdzić i jaki zrobić następny krok. Jeśli chcesz spokojniej zaplanować sprawy po narodzinach dziecka, polecam go. Przed wnioskiem zweryfikuj wymagania ZUS.

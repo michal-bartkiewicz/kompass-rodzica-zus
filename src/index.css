@@ -58,7 +58,7 @@ html[data-high-contrast="true"] nav {
   border-color: #0F172A !important;
 }
 
-/* Print Layout: Show only the clearly marked demonstration document on A4 */
+/* Print layout: show only the selected document on A4 */
 .print-only-sheet {
   display: none;
 }

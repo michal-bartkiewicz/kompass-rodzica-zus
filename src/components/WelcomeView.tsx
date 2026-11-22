@@ -199,7 +199,7 @@ export function WelcomeView({
               Pobierasz wzór do sprawdzenia
             </h3>
             <p className="text-sm leading-relaxed text-[#475569]">
-              Generator tworzy demonstracyjny projekt na podstawie obliczeń. Sprawdź go i porównaj z aktualnym formularzem udostępnionym przez ZUS przed użyciem.
+              Generator przygotuje projekt wniosku na podstawie obliczeń. Sprawdź jego treść i porównaj z aktualnym formularzem ZUS przed złożeniem.
             </p>
           </div>
         </div>

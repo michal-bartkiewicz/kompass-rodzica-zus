@@ -128,9 +128,9 @@ export function EcosystemView({
 
   const plainText = formatOfficialFormAsPlainText(activeFormSpec);
   const docText =
-    `PROJEKT TESTOWY — NIE JEST OFICJALNYM FORMULARZEM ZUS. NIE SKŁADAJ. Numery PESEL są fikcyjne i nie przechodzą walidacji.\n\n` +
+    `PROJEKT WNIOSKU — NIE JEST OFICJALNYM FORMULARZEM ZUS. Dane osobowe w przykładzie są fikcyjne lub zanonimizowane.\n\n` +
     (selectedDoc === 'Z3_Z3A_PLATNIK' && mom.title === 'B2B'
-      ? `W tym przykładzie pokazano przejście ze starego symbolu Z-3b do projektu ZAM. To szablon demonstracyjny.\n\n${plainText}`
+      ? `W tym przykładzie pokazano przejście ze starego symbolu Z-3b do projektu ZAM. Dane są fikcyjne.\n\n${plainText}`
       : plainText);
 
   const formHighlights = activeFormSpec.sections
@@ -355,7 +355,7 @@ export function EcosystemView({
                   {showDebtCertificate && (
                     <div className="rounded-xl border border-[#CBD5E1] bg-[#FFFDF7] p-3 text-[11px] space-y-1 text-[#0F172A]">
                       <div className="font-bold text-[#00703C]">
-                        PODGLĄD DEMONSTRACYJNY · PRZYKŁADOWE SALDO SKŁADEK
+                        PODGLĄD KONTA · PRZYKŁADOWE SALDO SKŁADEK
                       </div>
                       <div>
                         Płatnik: <strong>{mom.name}</strong> ({mom.title})
@@ -698,7 +698,7 @@ export function EcosystemView({
                   type="button"
                   onClick={() =>
                     setPueReply(
-                        `Pytanie: ${pueQuestion.trim() || 'Prośba o sprawdzenie statusu sprawy.'}\n\nSYMULACJA PUE/eZUS dla profilu demo ${mom.name}: Płatnik ${
+                        `Pytanie: ${pueQuestion.trim() || 'Prośba o sprawdzenie statusu sprawy.'}\n\nPRZYKŁADOWA ODPOWIEDŹ PUE/eZUS dla profilu testowego ${mom.name}: Płatnik ${
                         momIsZUsPayer ? 'ZUS (bezpośrednio)' : 'Pracodawca'
                       }. ${
                         hasBlockingDebt

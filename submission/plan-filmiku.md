@@ -1,53 +1,34 @@
-# Plan filmu prezentacyjnego — Kompas Rodzica ZUS
+# Film prezentacyjny — Kompas Rodzica ZUS
 
-**Wersja robocza · dla jury HackYeah · 2:20–2:30 · format 16:9, 1080p**
+## Specyfikacja gotowego montażu
 
-## Cel
+- Czas: 2:02.85
+- Obraz: 1280 × 720, 24 kl./s, H.264
+- Dźwięk: polska lektorka, AAC
+- Napisy: polskie, wypalone bezpośrednio w obrazie; osobny plik napisów nie jest dołączony
+- Ton narracji: osobista, ciepła opowieść świeżo upieczonej mamy
+- Nazwa w narracji: zawsze pełne „Kompas Rodzica ZUS”
 
-W krótkim filmie pokazać drogę rodzica od niepewności do zrozumiałego planu: wybór przypadku, porównanie świadczeń, kontrolę dokumentu i następny krok. Film ma prezentować działające funkcje, jasno oznaczać symulację logowania i nie sugerować połączenia z ZUS.
+Film prowadzi od niepewności po narodzinach dziecka do jasnego planu dla obojga rodziców. Pokazuje kalkulator, ważne wyjątki, audyt dokumentu, generator wniosków, kolejne kroki i asystenta prawa.
 
-## Przebieg ujęć i narracja
+## Oś filmu
 
-| Czas | Obraz / działanie | Narracja |
+| Czas | Ujęcie | Cel sceny |
 |---|---|---|
-| 0:00–0:08 | Start aplikacji. Krótkie zbliżenie na tytuł i ilustrację rodziny. | „Narodziny dziecka to także terminy, urlopy, dokumenty i decyzje, które dotyczą obojga rodziców.” |
-| 0:08–0:25 | Kliknięcie „Zaloguj się do eZUS”. W oknie widoczne „Symulacja logowania” i wybór przypadku testowego. Zaznaczyć fikcyjny profil. | „Kompas prowadzi przez tę drogę krok po kroku. W prezentacji wybieram przypadek testowy. To symulacja — nie podajemy hasła ani kodu i nie łączymy się z eZUS.” |
-| 0:25–0:52 | Kalkulator: profile rodziców, warianty 81,5% oraz 100% + 70%, podział kwot i oś czasu. Powolny scroll. | „Kalkulator uwzględnia sytuację obojga rodziców. Porównuje warianty, pokazuje kwoty i terminy, a wynik oblicza deterministyczny silnik reguł.” |
-| 0:52–1:10 | Zmiana przypadku przez ten sam modal na scenariusz B2B z zaległością. Zbliżenie na ostrzeżenie i jego wyjaśnienie. | „Gotowe przypadki pomagają zauważyć wyjątki, na przykład zaległość składkową lub zwolnienie w ciąży. Można też wprowadzić własne dane ręcznie.” |
-| 1:10–1:32 | Audytor PDF na dołączonym, syntetycznym dokumencie. Pokazać rozpoznane pola, werdykt i rozwijane uzasadnienie. | „Audytor sprawdza dokument i wyjaśnia wynik. Szczegóły prawne są dostępne wtedy, kiedy są potrzebne.” |
-| 1:32–1:52 | Symulator eZUS: historia e-ZLA, przykładowe saldo, ścieżka USC, kreator projektu PDF. Na wydruku widoczna pieczęć „Projekt testowy — nie składaj”. | „Dalsze widoki pokazują przykładową historię i kolejne kroki. Projekty dokumentów zawierają fikcyjne dane i są wyraźnie oznaczone jako testowe.” |
-| 1:52–2:10 | Asystent prawa: pytanie o wybrany temat, krótki wynik i źródło przepisu. Nie pokazywać danych osobowych. | „Asystent objaśnia przepisy i wskazuje źródła. Kwoty i terminy nadal liczy silnik reguł, a nie model językowy.” |
-| 2:10–2:25 | Powrót do widoku startowego. Plansza z nazwą projektu i trzema hasłami: „Oblicz · Sprawdź · Zaplanuj”. | „Kompas Rodzica ZUS pomaga spokojniej zaplanować kolejne kroki. Przed złożeniem wniosku zawsze sprawdź aktualne wymagania ZUS.” |
+| 00:00–00:08.75 | Intro Veo i tytuł | Osobista potrzeba uporządkowania formalności po narodzinach dziecka. |
+| 00:08.75–00:21.08 | Logowanie do eZUS | Wybór przypadku testowego; jawna informacja o symulowanym logowaniu. |
+| 00:21.08–00:38.13 | Kalkulator rodziny | Porównanie wariantów, kwot dla obojga rodziców i terminów. |
+| 00:38.13–00:57.63 | Wyjątki i ryzyka | Umowa zlecenia bez dobrowolnego chorobowego oraz 90 dni wyczekiwania. |
+| 00:57.63–01:12.13 | Audyt PDF | Wgranie wniosku, kontrola odczytanych pól, uzasadnienie i podstawa prawna. |
+| 01:12.13–01:20.54 | eZUS i e-ZLA | Przykładowa historia i kolejny krok dla rodziny. |
+| 01:20.54–01:36.25 | Generator wniosków | Podgląd projektu ZAM, ZAS-53 i druków dla pracodawcy. |
+| 01:36.25–01:49.75 | Asystent prawa | Proste objaśnienie przepisu, źródło i informacja, że AI może się mylić. |
+| 01:49.75–02:02.85 | Zakończenie | Rekomendacja Kompasu i przypomnienie o sprawdzeniu aktualnych wymagań ZUS. |
 
-## Wskazówki realizacyjne
+## Materiały i oznaczenia
 
-- Nagranie ekranu z lokalnej wersji aplikacji pod `http://localhost:3000`; 1920×1080, 30 kl./s.
-- Używać wyłącznie fikcyjnych profili i przykładowego PDF. Nie pokazywać prawdziwego PESEL-u, danych logowania, kluczy API ani zawartości plików `.env`.
-- Zostawić na ekranie oznaczenie „Symulacja logowania” podczas wyboru przypadku. Nie wpisywać i nie odgrywać prawdziwego logowania.
-- Rejestrować UI bez paska przeglądarki, przy stałym powiększeniu. Ruch kursora spokojny; przejścia proste, bez szybkich cięć.
-- Dodać polskie napisy zsynchronizowane z narracją. Muzyka cicha i neutralna; głos wyraźniejszy od podkładu.
-- Jeżeli film pokazuje asystenta korzystającego z Gemini, użyć wyłącznie fikcyjnego pytania. Interfejs informuje, kiedy treść pytania i kontekst są wysyłane do usługi.
-
-## Opcjonalne intro wygenerowane w Gemini Veo
-
-Warto użyć krótkiego, 6-sekundowego przebitkowego ujęcia otwierającego. Resztę filmu lepiej nagrać bezpośrednio z aplikacji, żeby UI i tekst pozostały prawdziwe.
-
-**Prompt do wklejenia w Veo:**
-
-> Create a 6-second horizontal 16:9 establishing shot for a warm, trustworthy explainer about planning parental leave and benefits in Poland. In a bright, cozy family apartment in soft morning light, show a close-up of two adults' hands calmly arranging a blank paper calendar, a pen, a few completely blank neutral forms, and tiny baby booties on a wooden table. The camera makes a slow, steady push-in across the table; gentle sage-green and warm cream palette, natural cinematic light, subtle handcrafted storybook realism, calm and reassuring mood. Leave uncluttered negative space in the upper left for an editor-added title. Keep every page blank: no readable text, no numbers, no logos, no government emblems, no app screens, no watermarks. Do not show faces or identifiable personal information. No dialogue and no generated captions. End on a close view of a blank form so it can cut cleanly to a real screen recording of the app.
-
-## Materiały do ujęć
-
-- Aktualny ekran startowy: `submission/screenshots/01-start.jpg`
-- Aktualne okno logowania: `submission/screenshots/02-logowanie-ezus.jpg`
-- Aktualny kalkulator: `submission/screenshots/03-kalkulator.jpg`
-- Aktualny widok eZUS: `submission/screenshots/05-symulator-ezus.jpg`
-- Pozostałe widoki prezentacji: `submission/screenshots/04-audytor-pdf.jpg`, `06-asystent-prawa.jpg`, `07-mobile.jpg`
-
-## Przed nagraniem
-
-1. Otworzyć lokalną aplikację i sprawdzić pełną ścieżkę od logowania do pobrania projektu PDF.
-2. Wybrać konkretne przypadki: Anna dla porównania wariantów oraz Kasia dla ostrzeżenia o zaległości.
-3. Przygotować syntetyczny PDF i pytanie do asystenta; ukryć wszelkie powiadomienia systemowe.
-4. Nagrać osobno obraz i narrację, następnie dodać napisy, planszę końcową i krótki podkład.
-5. Obejrzeć eksport bez dźwięku i z dźwiękiem, sprawdzając czytelność napisów oraz widoczność oznaczeń symulacji.
+- Finalny plik: `submission/filmik-prezentacyjny.mp4`.
+- Edytowalny tekst lektorski: `submission/tekst-lektora-elevenlabs.txt`.
+- Przykładowe wnioski użyte w audycie mogą być zanonimizowane albo zawierać fikcyjne dane; należy zachować oznaczenia przy samych dokumentach.
+- Logowanie do eZUS i widoki konta są symulowane; film nie sugeruje połączenia z systemami ZUS ani USC.
+- Projekty PDF są przeznaczone do sprawdzenia i nie zastępują aktualnych oficjalnych formularzy ZUS.

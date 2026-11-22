@@ -1,0 +1,26 @@
+00:00:00.000  WPROWADZENIE
+Po narodzinach mojego dziecka formalności przytłaczały mnie. Kompas Rodzica ZUS pomógł mi spokojnie ułożyć plan.
+
+00:00:08.750  01 · SYMULACJA LOGOWANIA
+Zaczęłam od fikcyjnego przypadku, żeby przejść wszystko bez stresu. To symulacja logowania: bez hasła, bez kodu i bez łączenia z e-ZUS. Mogłam też wpisać własne dane.
+
+00:00:21.083  02 · KALKULATOR
+Najbardziej pomógł mi kalkulator. Wpisałam formę zatrudnienia, termin porodu i podział opieki. Od razu zobaczyłam warianty wypłaty, kwoty dla nas obojga i ważne terminy. Wynik oblicza silnik reguł, więc mogłam łatwo porównać założenia.
+
+00:00:38.125  03 · SCENARIUSZE
+Doceniłam też, że Kompas Rodzica ZUS pokazuje ważne wyjątki. W przykładzie z umową zlecenia bez dobrowolnego ubezpieczenia chorobowego wyjaśnia, dlaczego nie przysługuje zasiłek chorobowy z tego ubezpieczenia. Scenariusz działalności przypomina o dziewięćdziesięciu dniach wyczekiwania na zasiłek chorobowy.
+
+00:00:57.625  04 · AUDYT PDF
+Doceniam, że po wgraniu dokumentu Kompas Rodzica ZUS pokazuje mi, co wymaga uwagi i dlaczego. Mogę otworzyć uzasadnienie i podstawę prawną. W prezentacji korzystamy wyłącznie z dokumentów testowych.
+
+00:01:12.125  05 · SYMULATOR eZUS
+Zobaczyłam, jak wygląda historia e-ZLA i dalsza ścieżka. Dane są fikcyjne; ekran nie łączy się z ZUS.
+
+00:01:20.542  06 · KREATOR DOKUMENTÓW
+Gdy potrzebowałam formularza, generator przygotował projekt PDF. Wybrałam ZAM, ZAS-53 albo druk dla pracodawcy, sprawdziłam pola i pobrałam dokument. To projekt testowy, nie oficjalny druk.
+
+00:01:36.250  07 · ASYSTENT PRAWA
+Gdy pojawiły się pytania o przepisy, asystent wyjaśnił je prostym językiem i pokazał podstawę prawną. Odpowiedzi AI sprawdzam w źródłach, bo mogą się mylić. Kwoty oblicza silnik reguł.
+
+00:01:49.750  KOMPAS RODZICA ZUS
+Kompas Rodzica ZUS dał mi poczucie, że wiem, co sprawdzić i jaki zrobić następny krok. Jeśli chcesz spokojniej zaplanować sprawy po narodzinach dziecka, polecam go. Przed wnioskiem zweryfikuj wymagania ZUS.

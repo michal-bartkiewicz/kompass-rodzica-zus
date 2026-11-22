@@ -63,10 +63,6 @@ export function TopNav({
           : 'border-[#DCECE3] bg-[#FFFDF7]/95 backdrop-blur-sm'
       }`}
     >
-      <div className="border-b border-[#FCD34D] bg-[#FFFBEB] px-3 py-1.5 text-center text-[10px] font-semibold leading-relaxed text-[#78350F] sm:text-xs">
-        <span className="font-extrabold tracking-wide">Informacja</span>
-        {' · '}Ta wersja nie łączy się z ZUS ani eZUS. Nie wpisuj haseł ani kodów logowania.
-      </div>
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-2 px-2.5 sm:h-[76px] sm:gap-5 sm:px-6 lg:gap-6 lg:px-8">
         {/* Zone 1: Brand Wordmark with enlarged pastel crayon ZUS-green compass */}
         <button

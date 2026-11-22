@@ -40,7 +40,7 @@ export interface OfficialPdfPayload {
 }
 
 /**
- * Tworzy demonstracyjny projekt dokumentu PDF na podstawie danych kalkulatora.
+ * Tworzy projekt dokumentu PDF na podstawie danych kalkulatora.
  * Nie jest to oficjalny formularz ZUS ani dokument do złożenia.
  */
 export function downloadOfficialZusPdf(payload: OfficialPdfPayload): void {
@@ -63,7 +63,7 @@ export function downloadOfficialZusPdf(payload: OfficialPdfPayload): void {
     table: {
       widths: ['*'],
       body: [[{
-        text: 'PROJEKT DEMONSTRACYJNY — NIE JEST OFICJALNYM FORMULARZEM ZUS. NIE SKŁADAJ.',
+        text: 'PROJEKT WNIOSKU DO WERYFIKACJI — NIE JEST OFICJALNYM FORMULARZEM ZUS.',
         bold: true,
         fontSize: 9,
         color: '#7F1D1D',
@@ -405,7 +405,7 @@ export function downloadOfficialZusPdf(payload: OfficialPdfPayload): void {
       margin: [32, 0, 32, 12],
       columns: [
         {
-          text: `${spec.symbol} · Projekt demonstracyjny · stan prawny ${payload.params.yearLabel}`,
+          text: `${spec.symbol} · Projekt wniosku · stan prawny ${payload.params.yearLabel}`,
           fontSize: 6.8,
           color: '#64748B',
         },
@@ -439,28 +439,28 @@ const SAMPLE_AUDIT_DOCUMENTS: Record<
 > = {
   ZAM: {
     title: 'ZUS ZAM — wniosek o zasiłek macierzyński',
-    fileName: 'Demo_syntetyczne_ZAM_UoP.pdf',
-    body: 'Wnioskodawca: Alicja Testowa\nTytuł ubezpieczenia: umowa o pracę\nOkres ubezpieczenia chorobowego: 365 dni\nPrzerwa między okresami ubezpieczenia: 0 dni\nZadłużenie składkowe: 0,00 zł\nWynagrodzenie brutto: 8 100,00 zł\nLiczba ubezpieczonych na 30.11.2026: 14 osób\nWniosek o zasiłek macierzyński złożony 14 dzień po porodzie przez PUE/eZUS: TAK\nPrzykład syntetyczny do testów.',
+    fileName: 'Przykladowy_ZAM_UoP.pdf',
+    body: 'Wnioskodawca: Alicja Testowa\nTytuł ubezpieczenia: umowa o pracę\nOkres ubezpieczenia chorobowego: 365 dni\nPrzerwa między okresami ubezpieczenia: 0 dni\nZadłużenie składkowe: 0,00 zł\nWynagrodzenie brutto: 8 100,00 zł\nLiczba ubezpieczonych na 30.11.2026: 14 osób\nWniosek o zasiłek macierzyński złożony 14 dzień po porodzie przez PUE/eZUS: TAK\nPrzykładowy dokument zawiera fikcyjne dane.',
   },
   'Z-3': {
     title: 'ZUS Z-3 — zaświadczenie płatnika składek',
-    fileName: 'Demo_syntetyczne_Z-3_UoP.pdf',
-    body: 'Wnioskodawca: Alicja Testowa\nTytuł ubezpieczenia: umowa o pracę\nStaż ubezpieczenia chorobowego: 365 dni\nPrzerwa między okresami ubezpieczenia: 0 dni\nZadłużenie składkowe: 0,00 zł\nWynagrodzenie brutto: 8 100,00 zł\nLiczba ubezpieczonych zgłaszanych przez płatnika: 14 osób\nSprawa dotyczy zasiłku macierzyńskiego po porodzie. Wniosek złożony 14 dzień po porodzie przez PUE/eZUS: TAK\nPrzykład syntetyczny do testów.',
+    fileName: 'Przykladowy_Z-3_UoP.pdf',
+    body: 'Wnioskodawca: Alicja Testowa\nTytuł ubezpieczenia: umowa o pracę\nStaż ubezpieczenia chorobowego: 365 dni\nPrzerwa między okresami ubezpieczenia: 0 dni\nZadłużenie składkowe: 0,00 zł\nWynagrodzenie brutto: 8 100,00 zł\nLiczba ubezpieczonych zgłaszanych przez płatnika: 14 osób\nSprawa dotyczy zasiłku macierzyńskiego po porodzie. Wniosek złożony 14 dzień po porodzie przez PUE/eZUS: TAK\nPrzykładowy dokument zawiera fikcyjne dane.',
   },
   'Z-3a': {
     title: 'ZUS Z-3a — zaświadczenie zleceniodawcy',
-    fileName: 'Demo_syntetyczne_Z-3a_zlecenie.pdf',
-    body: 'Wnioskodawca: Maja Przykładowa\nTytuł ubezpieczenia: umowa zlecenia\nOkres ubezpieczenia chorobowego: 180 dni\nPrzerwa między okresami ubezpieczenia: 0 dni\nDobrowolne ubezpieczenie chorobowe: NIE\nZadłużenie składkowe: 0,00 zł\nPrzychód brutto: 5 200,00 zł\nLiczba ubezpieczonych zgłaszanych przez płatnika: 10 osób\nSprawa dotyczy zasiłku macierzyńskiego po porodzie. Wniosek złożony 10 dzień po porodzie, poza PUE/eZUS.\nPrzykład syntetyczny do testów.',
+    fileName: 'Przykladowy_Z-3a_zlecenie.pdf',
+    body: 'Wnioskodawca: Maja Przykładowa\nTytuł ubezpieczenia: umowa zlecenia\nOkres ubezpieczenia chorobowego: 180 dni\nPrzerwa między okresami ubezpieczenia: 0 dni\nDobrowolne ubezpieczenie chorobowe: NIE\nZadłużenie składkowe: 0,00 zł\nPrzychód brutto: 5 200,00 zł\nLiczba ubezpieczonych zgłaszanych przez płatnika: 10 osób\nSprawa dotyczy zasiłku macierzyńskiego po porodzie. Wniosek złożony 10 dzień po porodzie, poza PUE/eZUS.\nPrzykładowy dokument zawiera fikcyjne dane.',
   },
   'ZAS-53': {
     title: 'ZUS ZAS-53 — wniosek o zasiłek chorobowy w ciąży (kod B)',
-    fileName: 'Demo_syntetyczne_ZAS-53_Ciaza.pdf',
-    body: 'Wnioskodawca: Maja Przykładowa\nProfil syntetyczny: osoba prowadząca działalność (B2B)\nTytuł ubezpieczenia: B2B (dobrowolne ubezpieczenie chorobowe: TAK)\nOkres ubezpieczenia chorobowego przed niezdolnością do pracy: 60 dni\nPrzerwa między okresami ubezpieczenia: 0 dni\nZadłużenie na koncie składek: 0,00 zł\nPodstawa wymiaru składek brutto: 8 400,00 zł\nLiczba ubezpieczonych u płatnika: 1 osoba\nZwolnienie w ciąży z kodem B przez 25 dni. Przykład syntetyczny do testów.',
+    fileName: 'Przykladowy_ZAS-53_Ciaza.pdf',
+    body: 'Wnioskodawca: Maja Przykładowa\nProfil syntetyczny: osoba prowadząca działalność (B2B)\nTytuł ubezpieczenia: B2B (dobrowolne ubezpieczenie chorobowe: TAK)\nOkres ubezpieczenia chorobowego przed niezdolnością do pracy: 60 dni\nPrzerwa między okresami ubezpieczenia: 0 dni\nZadłużenie na koncie składek: 0,00 zł\nPodstawa wymiaru składek brutto: 8 400,00 zł\nLiczba ubezpieczonych u płatnika: 1 osoba\nZwolnienie w ciąży z kodem B przez 25 dni. Dokument zawiera fikcyjne dane.',
   },
   'Z-3b': {
     title: 'ZUS Z-3b — archiwalne zaświadczenie płatnika składek',
-    fileName: 'Demo_syntetyczne_Z-3b_B2B.pdf',
-    body: 'Wnioskodawca: Jan Przykładowy\nProfil syntetyczny: osoba prowadząca działalność (B2B)\nTytuł ubezpieczenia: B2B (dobrowolne ubezpieczenie chorobowe: TAK)\nŁączny staż ubezpieczenia chorobowego: 120 dni\nPrzerwa między okresami ubezpieczenia: 18 dni\nZadłużenie składkowe na dzień powstania prawa: 18,50 zł\nDeklarowany przychód brutto (podstawa składek): 14 000,00 zł\nLiczba ubezpieczonych zgłaszanych przez płatnika: 1 osoba\nWniosek o zasiłek macierzyński złożony 19 dzień po porodzie przez PUE/eZUS: TAK\nPrzykład syntetyczny do testów. Druk archiwalny, wycofany 24.10.2026 r.',
+    fileName: 'Przykladowy_Z-3b_B2B.pdf',
+    body: 'Wnioskodawca: Jan Przykładowy\nProfil syntetyczny: osoba prowadząca działalność (B2B)\nTytuł ubezpieczenia: B2B (dobrowolne ubezpieczenie chorobowe: TAK)\nŁączny staż ubezpieczenia chorobowego: 120 dni\nPrzerwa między okresami ubezpieczenia: 18 dni\nZadłużenie składkowe na dzień powstania prawa: 18,50 zł\nDeklarowany przychód brutto (podstawa składek): 14 000,00 zł\nLiczba ubezpieczonych zgłaszanych przez płatnika: 1 osoba\nWniosek o zasiłek macierzyński złożony 19 dzień po porodzie przez PUE/eZUS: TAK\nDokument zawiera fikcyjne dane. Druk archiwalny, wycofany 24.10.2026 r.',
   },
 };
 

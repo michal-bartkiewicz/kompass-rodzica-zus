@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { BookOpen, Loader2, Send } from 'lucide-react';
+import { BookOpen, Info, Loader2, Send } from 'lucide-react';
 import LEGAL_GUIDE_IMAGE from '../assets/images/tab_legal_guide_1795285878177.jpg';
 import { useReducedMotion } from 'motion/react';
 
@@ -316,8 +316,13 @@ export function LegalRagView({ law2027Enabled }: { law2027Enabled: boolean }) {
         </div>
       </section>
 
-      <div className="rounded-lg border border-[#FCD34D] bg-[#FFFBEB] px-4 py-3 text-xs leading-relaxed text-[#78350F]">
-        Jeśli serwer ma skonfigurowany Gemini, Twoje pytanie i kontekst ostatnich wiadomości są wysyłane do tej usługi, aby przygotować odpowiedź. Nie wpisuj danych osobowych ani szczegółów pozwalających zidentyfikować sprawę.
+      <div className="flex items-start gap-3 rounded-xl border border-[#DCECE3] bg-[#F8FAFC] px-4 py-3 text-xs leading-relaxed text-[#475569]">
+        <Info className="mt-0.5 h-4 w-4 shrink-0 text-[#00703C]" />
+        <div className="space-y-1">
+          <p className="font-medium text-[#334155]">
+            Odpowiedzi AI mogą zawierać błędy lub nie uwzględniać wszystkich okoliczności. Sprawdź podstawę prawną i zweryfikuj ważne informacje przed podjęciem decyzji.
+          </p>
+        </div>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-12">

@@ -33,7 +33,7 @@ export function ZusLoginModal({
 
   if (!isOpen) return null;
 
-  const handleStartDemo = () => {
+  const handleStartTestCase = () => {
     onLoginSuccess('Symulacja logowania · eZUS', selectedPersonaId);
     onClose();
   };
@@ -109,7 +109,7 @@ export function ZusLoginModal({
             </button>
             <button
               type="button"
-              onClick={handleStartDemo}
+              onClick={handleStartTestCase}
               className="inline-flex items-center gap-2 rounded-xl bg-[#00703C] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#005A30]"
             >
               <CheckCircle2 className="h-4 w-4" />

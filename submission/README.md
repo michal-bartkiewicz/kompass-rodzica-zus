@@ -3,7 +3,11 @@
 - `prezentacja.pdf` — dziewięć slajdów, zgodnie z limitem 10.
 - `prezentacja.html` — edytowalne źródło prezentacji.
 - `screenshots/` — zrzuty z aplikacji desktopowej i mobilnej, przygotowane na fikcyjnym profilu.
+- `tekst-lektora-elevenlabs.txt` — gotowy, podzielony według scen tekst do wygenerowania polskim głosem w ElevenLabs.
+- `filmik-prezentacyjny.mp4` — finalny film z lektorem i polskimi napisami.
+- `filmik-wizualny.mp4` — wersja obrazu bez ścieżki audio.
+- `finalize_film.py` — lokalny skrypt do synchronizacji dziewięciu scen z jednym nagraniem lektorskim i eksportu MP4.
 
-W repozytorium źródłowym nie ma zanonimizowanych spraw ani przykładowych wniosków przekazanych do konkursu. Dostępne w audytorze PDF-y są jawnie oznaczone jako syntetyczne; nie przedstawiają prawdziwych akt ZUS.
+Wśród materiałów konkursowych znajduje się zanonimizowany wniosek do sprawdzenia w audytorze. Dodatkowe wzory generowane przez aplikację zawierają fikcyjne dane.
 
-Film demonstracyjny nie jest jeszcze częścią tego pakietu — przygotowanie filmu odkładamy na kolejny etap.
+Wszystkie przykłady używane w filmie są fikcyjne i testowe.

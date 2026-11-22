@@ -11,7 +11,6 @@ import {
   ScanText,
   XCircle,
 } from 'lucide-react';
-import { CURATED_AUDIT_CASES } from '../engine/presets.ts';
 import { auditZusCase } from '../engine/zusEngine.ts';
 import type {
   AuditInput,
@@ -36,16 +35,32 @@ interface AuditPdfViewProps {
   onTransferToCalculator: (input: AuditInput) => void;
 }
 
+const EMPTY_AUDIT_INPUT: AuditInput = {
+  formType: 'ZAM',
+  applicantName: '',
+  insuredTitle: 'BRAK',
+  payerInsuredCount: 0,
+  insuranceDaysTotal: 0,
+  gapBetweenPeriodsDays: 0,
+  hasVoluntarySickness: false,
+  b2bDebtAmount: 0,
+  monthlyGrossDeclared: 0,
+  monthsInsuredLast12: 0,
+  isPregnancyRelated: false,
+  usedSickDaysBeforePregnancy: 0,
+  usedSickDaysWithCodeB: 0,
+  hasSecondEmploymentTitle: false,
+  optOutSecondTitleL4_2027: false,
+  claimDaysAfterBirth: 0,
+  submittedViaPue: false,
+};
+
 export function AuditPdfView({
   params,
   onTransferToCalculator,
 }: AuditPdfViewProps) {
-  const [selectedCaseId, setSelectedCaseId] = useState<string>(
-    CURATED_AUDIT_CASES[0]!.id
-  );
-  const [currentInput, setCurrentInput] = useState<AuditInput>(
-    CURATED_AUDIT_CASES[0]!.input
-  );
+  const [currentInput, setCurrentInput] = useState<AuditInput>(EMPTY_AUDIT_INPUT);
+  const [hasAuditResult, setHasAuditResult] = useState(false);
   const [fileName, setFileName] = useState<string>('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [downloadingSample, setDownloadingSample] = useState<SampleAuditKind | null>(null);
@@ -56,7 +71,9 @@ export function AuditPdfView({
   const [ocrMeta, setOcrMeta] = useState<OcrMeta | null>(null);
   const [imgError, setImgError] = useState(false);
 
-  const verdict = serverVerdict ?? auditZusCase(currentInput, params);
+  const verdict = hasAuditResult
+    ? serverVerdict ?? auditZusCase(currentInput, params)
+    : null;
   const pageCountLabel =
     ocrMeta?.pageCount === 1
       ? 'strona'
@@ -91,21 +108,10 @@ export function AuditPdfView({
     }
   };
 
-  const handleSelectCurated = (id: string) => {
-    setSelectedCaseId(id);
-    setServerVerdict(null);
-    setErrorMsg(null);
-    setFileName('');
-    setScanPreviews([]);
-    setOcrMeta(null);
-    const found = CURATED_AUDIT_CASES.find((c) => c.id === id);
-    if (found) {
-      setCurrentInput(found.input);
-    }
-  };
-
   const handleFileUpload = async (file: File) => {
     setErrorMsg(null);
+    setHasAuditResult(false);
+    setServerVerdict(null);
     setIsAnalyzing(true);
     setFileName(file.name);
     setScanPreviews([]);
@@ -146,10 +152,10 @@ export function AuditPdfView({
 
       setCurrentInput(data.extracted);
       setServerVerdict(data.verdict);
+      setHasAuditResult(true);
       if (data.ocrMeta) {
         setOcrMeta(data.ocrMeta);
       }
-      setSelectedCaseId('custom-upload');
     } catch (err) {
       setErrorMsg(
         err instanceof Error
@@ -171,7 +177,7 @@ export function AuditPdfView({
               Audytor PDF i Tester Spraw ZUS
             </h1>
             <p className="max-w-2xl text-sm leading-relaxed text-[#475569]">
-              Wgraj zanonimizowany dokument do demonstracyjnego audytu albo wybierz jeden z syntetycznych zestawów testowych. Gemini odczytuje pola dokumentu, a kwoty i werdykt oblicza deterministyczny silnik reguł.
+              Wgraj zanonimizowany dokument lub skan, aby sprawdzić go w audycie. Możesz też pobrać przykładowy PDF poniżej. Gemini odczytuje pola dokumentu, a kwoty i werdykt oblicza deterministyczny silnik reguł.
             </p>
           </div>
           <div className="lg:col-span-4">
@@ -193,13 +199,13 @@ export function AuditPdfView({
       </section>
 
       <div className="grid gap-6 lg:grid-cols-12">
-        {/* Left 5 cols: Upload & Curated Test Cases */}
-        <div className="lg:col-span-5 space-y-6">
+        {/* Upload and sample documents */}
+        <div className="lg:col-span-5">
           <section className="rounded-2xl border border-[#DCECE3] bg-white p-6 space-y-4">
             <h2 className="font-display text-lg font-semibold text-[#0F172A]">
-              1. Wgraj zanonimizowany PDF, skan lub zdjęcie
+              Wgraj zanonimizowany PDF, skan lub zdjęcie
             </h2>
-            <div className="rounded-lg border border-[#FCD34D] bg-[#FFFBEB] p-3 text-xs leading-relaxed text-[#78350F]">
+            <div className="rounded-lg border border-[#DCECE3] bg-[#F8FAFC] p-3 text-xs leading-relaxed text-[#475569]">
               Plik, wyodrębniony tekst i obrazy stron są przesyłane do serwera tej aplikacji. Jeśli serwer ma skonfigurowany Gemini, jego usługa otrzyma treść do analizy OCR. Używaj wyłącznie dokumentów syntetycznych lub pozbawionych danych osobowych.
             </div>
             <label className="flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-[#CBD5E1] bg-[#F8FAFC] px-4 py-7 text-center transition-colors hover:border-[#00703C] hover:bg-[#ECFDF5]/40">
@@ -309,42 +315,12 @@ export function AuditPdfView({
             )}
           </section>
 
-          <section className="rounded-2xl border border-[#DCECE3] bg-white p-6 space-y-3">
-            <h2 className="font-display text-lg font-semibold text-[#0F172A]">
-              2. Syntetyczne zestawy testowe
-            </h2>
-            <p className="text-xs leading-relaxed text-[#64748B]">
-              To przykłady utworzone w aplikacji, a nie akta ani zanonimizowane sprawy przekazane przez ZUS.
-            </p>
-            <div className="space-y-2">
-              {CURATED_AUDIT_CASES.map((testCase) => {
-                const isSelected = selectedCaseId === testCase.id;
-                return (
-                  <button
-                    key={testCase.id}
-                    type="button"
-                    onClick={() => handleSelectCurated(testCase.id)}
-                    className={`w-full rounded-lg border p-3.5 text-left transition-colors ${
-                      isSelected
-                        ? 'border-[#00703C] bg-[#ECFDF5]/60'
-                        : 'border-[#E2E8F0] bg-[#F8FAFC] hover:bg-white'
-                    }`}
-                  >
-                    <div className="text-sm font-semibold text-[#0F172A]">
-                      {testCase.label}
-                    </div>
-                    <p className="mt-1 text-xs text-[#475569]">
-                      {testCase.description}
-                    </p>
-                  </button>
-                );
-              })}
-            </div>
-          </section>
         </div>
 
         {/* Right 7 cols: Verdict, Extracted Data & Audit Trail */}
         <div className="lg:col-span-7 space-y-6">
+          {hasAuditResult && verdict ? (
+            <>
           {/* Abolished Form Alert (24.10.2026) */}
           {verdict.legacyFormNotice && (
             <section className="rounded-xl border border-[#F59E0B] bg-[#FFFBEB] p-5">
@@ -368,9 +344,7 @@ export function AuditPdfView({
               <div>
                 <div className="text-xs font-semibold uppercase tracking-wide text-[#475569]">
                   Werdykt silnika deterministycznego ·{' '}
-                  {selectedCaseId !== 'custom-upload'
-                    ? 'Profil demonstracyjny (dane syntetyczne)'
-                    : currentInput.applicantName}
+                  {currentInput.applicantName || 'Wczytany dokument'}
                 </div>
                 <div className="mt-1 flex items-center gap-2.5">
                   {verdict.verdict === 'MA PRAWO' ? (
@@ -780,6 +754,28 @@ export function AuditPdfView({
                   </pre>
                 </details>
               )}
+            </section>
+          )}
+            </>
+          ) : (
+            <section className="rounded-2xl border border-[#DCECE3] bg-white p-6">
+              <div className="flex items-start gap-3">
+                {isAnalyzing ? (
+                  <Loader2 className="mt-0.5 h-5 w-5 shrink-0 animate-spin text-[#00703C]" />
+                ) : (
+                  <FileUp className="mt-0.5 h-5 w-5 shrink-0 text-[#00703C]" />
+                )}
+                <div>
+                  <h2 className="font-display text-base font-semibold text-[#0F172A]">
+                    {isAnalyzing ? 'Analizuję dokument' : 'Załaduj plik, aby zobaczyć wynik'}
+                  </h2>
+                  <p className="mt-1 text-sm leading-relaxed text-[#64748B]">
+                    {isAnalyzing
+                      ? statusLabel || `Trwa analiza pliku ${fileName}…`
+                      : 'Wgraj dokument lub pobierz przykładowy PDF pod formularzem i załaduj go do audytu.'}
+                  </p>
+                </div>
+              </div>
             </section>
           )}
         </div>
